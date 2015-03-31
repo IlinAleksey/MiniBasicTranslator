@@ -32,6 +32,10 @@ class Lexer
 	{
 		A1, A2, A3, B1, C1, C2, D1, D2, D3, D4, D5, D6, E1, E2, F1, F2, F3, G1, H1, LAST_STATE
 	};
+	enum relation
+	{ 
+		equal, less, more, notequal, lessorequal, moreorequal 
+	};
 	transliterator_token transliterator(char symbol);
 	Hashtable TS;
 	std::vector<id> TO;
