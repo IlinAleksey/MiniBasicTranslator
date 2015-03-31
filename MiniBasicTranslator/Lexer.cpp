@@ -19,8 +19,7 @@ void Lexer::A1(transliterator_token tkn)
 	RSOS = state::A1;
 }
 
-void Lexer::A2(transliterator_token tkn)
+void Lexer::A1a(transliterator_token tkn)
 {
-	int a = 8;
-	int b = 7;
+
 }
