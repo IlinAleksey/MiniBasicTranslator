@@ -103,6 +103,10 @@ class Lexer
 		printf("hui");
 		int c = 1 + 1 * 2;
 		c = a + b;
+		int h = 1;
+		int e = 4;
+		int i = 8;
+		int l = 8;
 	}
 	void A1(transliterator_token tkn);
 	void A1(transliterator_token tkn);
