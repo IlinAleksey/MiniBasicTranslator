@@ -28,6 +28,10 @@ class Lexer
 		int m_name;
 		float m_value;
 	};
+	enum state
+	{
+		A1, A2, A3, B1, C1, C2, D1
+	};
 	transliterator_token transliterator(char symbol);
 	Hashtable TS;
 	std::vector<id> TO;
@@ -131,6 +135,22 @@ class Lexer
 	void A1(transliterator_token tkn);
 	void A1(transliterator_token tkn);
 	void A1(transliterator_token tkn);
+	void EXIT1(transliterator_token tkn);
+	void EXIT2(transliterator_token tkn);
+	void EXIT3(transliterator_token tkn);
+	void EXIT4(transliterator_token tkn);
+	void EXIT5(transliterator_token tkn);
+	void EXIT6(transliterator_token tkn);
+	void EXIT7(transliterator_token tkn);
+	void EXIT8(transliterator_token tkn);
+	void DA1D(transliterator_token tkn);
+	void DA2D(transliterator_token tkn);
+	void DA3D(transliterator_token tkn);
+	void DA4D(transliterator_token tkn);
+	void DA5D(transliterator_token tkn);
+	void DA6D(transliterator_token tkn);
+	void DA7D(transliterator_token tkn);
+	void DA8D(transliterator_token tkn);
 public:
 	Lexer();
 	~Lexer();
