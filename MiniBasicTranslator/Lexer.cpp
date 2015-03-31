@@ -114,4 +114,36 @@ void Lexer::D4a(transliterator_token tkn)
 		error_method();
 		break;
 	}
+	RSOS = state::D4;
+}
+
+void Lexer::D4(transliterator_token tkn)
+{
+	
+	RSOS = state::D4;
+}
+
+void Lexer::D5a(transliterator_token tkn)
+{
+	RZ = 1;
+	RSOS = state::D5;
+}
+
+void Lexer::D5b(transliterator_token tkn)
+{
+	RP = tkn.m_value;
+	RSOS = state::D5;
+}
+
+void Lexer::D5(transliterator_token tkn)
+{
+
+	RSOS = state::D5;
+}
+
+void Lexer::D5c(transliterator_token tkn)
+{
+	RP*= 10;
+	RP += tkn.m_value;
+	RSOS = state::D5;
 }
