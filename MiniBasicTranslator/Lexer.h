@@ -97,10 +97,10 @@ class Lexer
 	void C1a(transliterator_token tkn);
 	void Ñ1b(transliterator_token tkn)
 	{
-		int a = 5;
-		int b = 6;
-		a + b;
-		printf("hui");
+		int h = 1;
+		int e = 4;
+		int i = 8;
+		int l = 8;
 	}
 	void A1(transliterator_token tkn);
 	void A1(transliterator_token tkn);
