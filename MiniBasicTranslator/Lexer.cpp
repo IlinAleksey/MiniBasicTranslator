@@ -13,6 +13,10 @@ Lexer::~Lexer()
 {
 }
 
+void Lexer::A1(transliterator_token tkn)
+{
+	printf("YOBA");
+}
 
 void Lexer::A2(transliterator_token tkn)
 {
