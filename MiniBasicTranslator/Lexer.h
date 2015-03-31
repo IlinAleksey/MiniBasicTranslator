@@ -31,7 +31,7 @@ class Lexer
 	};
 	enum state
 	{
-		A1, A2, A3, B1, C1, C2, D1, D2, D3, D4, D5, D6, E1, E2, F1, F2, F3, G1, H1, LAST_STATE
+		A1, A2, A3, B1, C1, C2, D1, D2, D3, D4, D5, D6, E1, E2, F1, F2, F3, G1, H1, ERROR, LAST_STATE
 	};
 	typedef void(Lexer::*lexer_method)(transliterator_token);
 	struct transition_table_element
@@ -172,6 +172,7 @@ class Lexer
 	void DA2D(transliterator_token tkn);
 	void DA3D(transliterator_token tkn);
 	void DA1LOOP(transliterator_token tkn);
+	void error_method();
 	void addLexem();
 public:
 	Lexer();

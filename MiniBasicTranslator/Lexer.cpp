@@ -101,3 +101,17 @@ void Lexer::A1e(transliterator_token tkn)
 	A1a(tkn);
 	RSOS = state::A1;
 }
+
+void Lexer::D4a(transliterator_token tkn)
+{
+	switch (tkn.m_value)
+	{
+	case 1:
+		RZ = 1;
+	case 2:
+		RZ = -1;
+	default:
+		error_method();
+		break;
+	}
+}
