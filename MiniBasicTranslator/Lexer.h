@@ -100,6 +100,7 @@ class Lexer
 		int a = 5;
 		int b = 6;
 		a + b;
+		printf("hui");
 	}
 	void A1(transliterator_token tkn);
 	void A1(transliterator_token tkn);
