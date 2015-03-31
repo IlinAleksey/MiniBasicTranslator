@@ -151,6 +151,7 @@ class Lexer
 	void DA6D(transliterator_token tkn);
 	void DA7D(transliterator_token tkn);
 	void DA8D(transliterator_token tkn);
+	void addLexem();
 public:
 	Lexer();
 	~Lexer();
