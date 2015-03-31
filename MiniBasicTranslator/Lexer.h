@@ -95,7 +95,12 @@ class Lexer
 	void B1e(transliterator_token tkn);
 	void C1(transliterator_token tkn);
 	void C1a(transliterator_token tkn);
-	void Ñ1b(transliterator_token tkn);
+	void Ñ1b(transliterator_token tkn)
+	{
+		int a = 5;
+		int b = 6;
+		a + b;
+	}
 	void A1(transliterator_token tkn);
 	void A1(transliterator_token tkn);
 	void A1(transliterator_token tkn);
