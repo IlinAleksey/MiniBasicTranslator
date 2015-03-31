@@ -40,19 +40,19 @@ class Lexer
 	int UTO;
 	int UTL;
 	int NTS;
-	int NTO;
-	int NTL;
-	int RCH;
-	int RZ;
-	int RP;
-	int RS;
-	int RKL;
-	int ROT;
-	int RZN;
-	int RSOS;
-	int ROB;
-	int RK;
-	std::string RSTR;
+	int NTO; //Указатель на первый свободный элемент в ТО
+	int NTL; //Указатель на первый свободный элемент в ТL
+	int RCH; //регистр числа
+	int RZ; //регистр знака порядка
+	int RP; //регистр порядка
+	int RS; //регистр счетчика
+	int RKL; //регистр класса лексем
+	int ROT; //регистр значения отношения
+	int RZN; //регистр значения символа
+	int RSOS; //регистр состояния
+	int ROB; //регистр обнаружения
+	int RK; //регистр значения класса символа
+	std::string RSTR; //регистр строки
 
 	typedef void(Lexer::*lexer_method)(transliterator_token);
 	void A1(transliterator_token tkn);
