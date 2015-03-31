@@ -14,3 +14,8 @@ Lexer::~Lexer()
 }
 
 
+void Lexer::A2(transliterator_token tkn)
+{
+	int a = 8;
+	int b = 7;
+}
