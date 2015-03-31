@@ -4,6 +4,7 @@
 #include <vector>
 class Lexer
 {
+	
 	enum lexeme_token_class
 	{
 		label=1, identifier, arithmetic_operation, relationship_operation, end_of_loop, assignment, transfer, transfer_sub, 
@@ -30,8 +31,18 @@ class Lexer
 	};
 	enum state
 	{
-		A1, A2, A3, B1, C1, C2, D1, D2, D3, D4, D5, D6, E1, E2, F1, F2, F3, G1, H1, LAST_STATE
+		A1, A2, A3, B1, C1, C2, D1, D2, D3, D4, D5, D6, E1, E2, F1, F2, F3, G1, H1, ERROR, LAST_STATE
 	};
+	typedef void(Lexer::*lexer_method)(transliterator_token);
+	struct transition_table_element
+	{
+		char symbol;
+		int alternative;
+		lexer_method method;
+	};
+	std::vector<int> m_init_vector;
+	std::vector<transition_table_element> m_transition_table;
+
 	enum relation
 	{ 
 		equal, less, more, notequal, lessorequal, moreorequal 
@@ -58,7 +69,7 @@ class Lexer
 	int RK; //регистр значения класса символа
 	std::string RSTR; //регистр строки
 
-	typedef void(Lexer::*lexer_method)(transliterator_token);
+	
 	void A1(transliterator_token tkn);
 	void A1a(transliterator_token tkn);
 	void A1b(transliterator_token tkn);
@@ -165,6 +176,7 @@ class Lexer
 	void DA2D(transliterator_token tkn);
 	void DA3D(transliterator_token tkn);
 	void DA1LOOP(transliterator_token tkn);
+	void error_method();
 	void addLexem();
 public:
 	Lexer();
