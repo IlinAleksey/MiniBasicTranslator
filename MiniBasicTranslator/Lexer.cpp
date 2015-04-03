@@ -2,8 +2,6 @@
 
 
 Lexer::Lexer() :
-TO(286, id{0,0}),
-NTO(287)
 {
 	m_init_vector = {
 		-1, //a
@@ -57,144 +55,150 @@ NTO(287)
 		
 
 	};
+	UTO = new id[500];
+	NTO = &UTO[278];
+	UTL = new lexeme_token[100];
+	NTL = UTL;
 }
 
 
 Lexer::~Lexer()
 {
+	delete [] UTO;
+	delete [] UTL;
 }
 
-void Lexer::A1b(transliterator_token tkn)
+void Lexer::A1b( )
 {
-	DA1D(tkn);
+	DA1D( );
 	RSOS = state::A1;
 }
 
-void Lexer::A1a(transliterator_token tkn)
+void Lexer::A1a( )
 {
 	addLexem();
 	RSOS = state::A1;
 }
 
-void Lexer::A1(transliterator_token tkn)
+void Lexer::A1( )
 {
 	RSOS = state::A1;
 }
 
-void Lexer::A1c(transliterator_token tkn)
+void Lexer::A1c( )
 {
-	DA1D(tkn);
-	A1a(tkn);
+	DA1D( );
+	A1a( );
 	RSOS = state::A1;
 }
 
-void Lexer::A1d(transliterator_token tkn)
+void Lexer::A1d( )
 {
-	DA3D(tkn);
-	A1a(tkn);
+	DA3D( );
+	A1a( );
 	RSOS = state::A1;
 }
 
-void Lexer::A1e(transliterator_token tkn)
+void Lexer::A1e( )
 {
-	DA1E(tkn);
-	A1a(tkn);
+	DA1E( );
+	A1a( );
 	RSOS = state::A1;
 }
 
-void Lexer::A2c(transliterator_token tkn)
+void Lexer::A2c( )
 {
-	DA1D(tkn);
+	DA1D( );
 	RSOS = state::A2;
 }
 
-void Lexer::A2g(transliterator_token tkn)
+void Lexer::A2g( )
 {
 	addLexem();
 	RSOS = state::A2;
 }
 
-void Lexer::A2a(transliterator_token tkn)
+void Lexer::A2a( )
 {
 	RKL = arithmetic_operation;
 	RSOS = state::A2;
 }
 
-void Lexer::A2b(transliterator_token tkn)
+void Lexer::A2b( )
 {
 	addLexem();
 	RSOS = state::A2;
 }
 
-void Lexer::A2(transliterator_token tkn)
+void Lexer::A2( )
 {
 	RSOS = state::A2;
 }
 
-void Lexer::A2d(transliterator_token tkn)
+void Lexer::A2d( )
 {
-	DA2D(tkn);
-	A2g(tkn);
+	DA2D( );
+	A2g( );
 }
 
-void Lexer::A2e(transliterator_token tkn)
+void Lexer::A2e( )
 {
-	DA3D(tkn);
-	A2g(tkn);
+	DA3D( );
+	A2g( );
 }
 
-void Lexer::A2f(transliterator_token tkn)
+void Lexer::A2f( )
 {
-	DA1E(tkn);
-	A2g(tkn);
+	DA1E( );
+	A2g( );
 }
 
-void Lexer::A2j(transliterator_token tkn)
+void Lexer::A2j( )
 {
-	DA1E(tkn);
+	DA1E( );
 	RSOS = state::A2;
 }
 
-void Lexer::A2k(transliterator_token tkn)
+void Lexer::A2k( )
 {
 	addLexem();
 	RSOS = state::A2;
 }
 
-void Lexer::A2h(transliterator_token tkn)
+void Lexer::A2h( )
 {
 	RKL = left_parenthesis;
 	addLexem();
 	RSOS = state::A2;
 }
 
-void Lexer::A2l(transliterator_token tkn)
+void Lexer::A2l( )
 {
-	DA1D(tkn);
-	A2k(tkn);
+	DA1D( );
+	A2k( );
 	RSOS = state::A2;
 }
 
-void Lexer::A2m(transliterator_token tkn)
+void Lexer::A2m( )
 {
-	DA2D(tkn);
-	A2k(tkn);
+	DA2D( );
+	A2k( );
 	RSOS = state::A2;
 }
 
-void Lexer::A2n(transliterator_token tkn)
+void Lexer::A2n( )
 {
-	DA3D(tkn);
-	A2k(tkn);
+	DA3D( );
+	A2k( );
 	RSOS = state::A2;
 }
 
-void Lexer::A2o(transliterator_token tkn)
+void Lexer::A2o( )
 {
 		//нужно доделать!!
 }
 
-void Lexer::A2p(transliterator_token tkn)
+void Lexer::A2p( )
 {
 	int nw;
 	switch (ROT)
@@ -238,31 +242,31 @@ void Lexer::A2p(transliterator_token tkn)
 	RSOS = state::A2;
 }
 
-void Lexer::A2g(transliterator_token tkn)
+void Lexer::A2g( )
 {
 	RKL = END;
 	RSOS = state::A2;
 }
 
-void Lexer::A2r(transliterator_token tkn)
+void Lexer::A2r( )
 {
 	RKL = IF;
 	RSOS = state::A2;
 }
 
-void Lexer::A2s(transliterator_token tkn)
+void Lexer::A2s( )
 {
 	RKL = RETURN;
 	RSOS = state::A2;
 }
 
-void Lexer::A2t(transliterator_token tkn)
+void Lexer::A2t( )
 {
 	RKL = STEP;
 	RSOS = state::A2;
 }
 
-void Lexer::A2u(transliterator_token tkn)
+void Lexer::A2u( )
 {
 	RKL = lexeme_token_class::TO;
 	RSOS = state::A2;
