@@ -47,13 +47,14 @@ int Hashtable::next_free()
 	m_free_row++;
 	return to_ret;
 }
-void Hashtable::add(int key, int value)
+int Hashtable::add(int key, int value)
 {
 	int pos = hash_function(key);
 	if (is_row_null(pos))
 	{
 		m_table[pos].label = key;
 		m_table[pos].value = value;
+		return pos;
 	}
 	else
 	{
@@ -68,8 +69,14 @@ void Hashtable::add(int key, int value)
 			m_table[cur].alternative = free;
 			m_table[free].label = key;
 			m_table[free].value = value;
+			return free;
+		}
+		else
+		{
+			return cur;
 		}
 	}
+
 }
 
 int& Hashtable::operator[](int key)

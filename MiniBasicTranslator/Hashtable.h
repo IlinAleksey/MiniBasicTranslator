@@ -20,7 +20,7 @@ class Hashtable
 	int hash_function(int key) const;
 	bool is_row_null(int row) const;
 public:
-	void add(int key, int value);
+	int add(int key, int value);
 	int find(int key);
 	int& operator[](int key);
 	friend std::ostream& operator<<(std::ostream& out, const Hashtable& hashtable);
