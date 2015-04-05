@@ -7,7 +7,7 @@ class Lexer
 	
 	enum lexeme_token_class
 	{
-		label=1, identifier, arithmetic_operation, relationship_operation, end_of_loop, assignment, transfer, transfer_sub, 
+		label=1, identifier, arithmetic_operation, relationship_operation, end_of_loop, assignment,FOR, transfer, transfer_sub, 
 		left_parenthesis, right_parenthesis, IF, RETURN, END, TO, STEP, REM, ERROR_LEXEME, END_OF_FILE, LAST_LEXEME_TOKEN_CLASS
 	};
 	struct lexeme_token
@@ -65,6 +65,7 @@ class Lexer
 	int ROB; //регистр обнаружения
 	int RK; //регистр значения класса символа
 	int RSTR; //регистр строки
+	id* RU;
 
 	
 	void A1( );
@@ -146,7 +147,6 @@ class Lexer
 	void F1b( );
 	void F2( );
 	void F2a( );
-	void F2b( );
 	void F3( );
 	void F3a( );
 	void G1( );
@@ -161,7 +161,6 @@ class Lexer
 	void M1( );
 	void M2( );
 	void M3( );
-	void H1a( );
 	void EXIT1( );
 	void EXIT2( );
 	void EXIT3( );
@@ -175,6 +174,7 @@ class Lexer
 	void DA1LOOP( );
 	void error_method();
 	void addLexem();
+	void calculateConstant();
 public:
 	void start(std::string filename);
 	Lexer();
