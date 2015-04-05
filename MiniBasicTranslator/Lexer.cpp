@@ -200,11 +200,11 @@ void Lexer::A2o( )
 
 void Lexer::A2p( )
 {
-	int nw;
+	int nw; //что это за твою мать
 	switch (ROT)
 	{
 	case less:
-		switch (c.value)
+		switch (c.value) //теперь c какое-то
 		{
 		case equal:
 			nw = lessorequal;
@@ -244,25 +244,25 @@ void Lexer::A2p( )
 
 void Lexer::A2g( )
 {
-	RKL = END;
+	RKL = lexeme_token_class::END;
 	RSOS = state::A2;
 }
 
 void Lexer::A2r( )
 {
-	RKL = IF;
+	RKL = lexeme_token_class::IF;
 	RSOS = state::A2;
 }
 
 void Lexer::A2s( )
 {
-	RKL = RETURN;
+	RKL = lexeme_token_class::RETURN;
 	RSOS = state::A2;
 }
 
 void Lexer::A2t( )
 {
-	RKL = STEP;
+	RKL = lexeme_token_class::STEP;
 	RSOS = state::A2;
 }
 
@@ -270,4 +270,49 @@ void Lexer::A2u( )
 {
 	RKL = lexeme_token_class::TO;
 	RSOS = state::A2;
+}
+void Lexer::D4a( )
+{
+	switch (RZ)
+	{
+	case 1:
+		RZ = 1;
+	case 2:
+		RZ = -1;
+	default:
+		error_method();
+		break;
+	}
+	RSOS = state::D4;
+}
+
+void Lexer::D4( )
+{
+
+	RSOS = state::D4;
+}
+
+void Lexer::D5a( )
+{
+	RZ = 1;
+	RSOS = state::D5;
+}
+
+void Lexer::D5b( )
+{
+	RP = RZ;
+	RSOS = state::D5;
+}
+
+void Lexer::D5( )
+{
+
+	RSOS = state::D5;
+}
+
+void Lexer::D5c( )
+{
+	RP *= 10;
+	RP += RZ;
+	RSOS = state::D5;
 }
