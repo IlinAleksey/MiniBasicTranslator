@@ -201,45 +201,45 @@ void Lexer::A2o( )
 
 void Lexer::A2p( )
 {
-	int nw; //что это
+	int new_relationship; //что это
 	switch (ROT)
 	{
 	case less:
-		switch (c.value) //теперь c какое-то
+		switch (RZN) //теперь c какое-то
 		{
 		case equal:
-			nw = lessorequal;
+			new_relationship = lessorequal;
 			break;
 		case more:
-			nw = notequal;
+			new_relationship = notequal;
 		default:
-			nw = -1;
+			new_relationship = -1;
 			break;
 		}
 		break;
 	case more:
-		switch (c.value)
+		switch (RZN)
 		{
 		case equal:
-			nw = moreorequal;
+			new_relationship = moreorequal;
 			break;
 		default:
-			nw = -1;
+			new_relationship = -1;
 			break;
 		}
 		break;
 	case equal:
-		nw = -1;
+		new_relationship = -1;
 		break;
 	default:
-		nw = -1;
+		new_relationship = -1;
 		break;
 	}
-	if (nw == -1)
+	if (new_relationship == -1)
 	{
 		error_method();
 	}
-	ROT = nw;
+	ROT = new_relationship;
 	RSOS = state::A2;
 }
 
@@ -273,11 +273,35 @@ void Lexer::A2u( )
 	RSOS = state::A2;
 }
 void A3();
-void A3a();
-void A3b();
-void A3c();
-void A3d();
-void A3e();
+void Lexer::A3a()
+{
+	RZN = (RZN + 1) * 26;
+	RZN += RU;
+	addLexem();
+	RSOS = state::A3;
+}
+void Lexer::A3b()
+{
+	RKL = right_parenthesis;
+	addLexem();
+	RSOS = state::A3;
+}
+void Lexer::A3c()
+{
+	addLexem();
+	RSOS = state::A3;
+}
+void Lexer::A3d()
+{
+	DA1D();
+	RSOS = state::A3;
+}
+void Lexer::A3e()
+{
+	DA2D();
+	A3c();
+	RSOS = state::A3;
+}
 void A3f();
 void A3g();
 void B1();
@@ -305,12 +329,12 @@ void D3();
 void D3a();
 void Lexer::D4a( )
 {
-	switch (RZ)
+	switch (RZN)
 	{
 	case 1:
-		RZ = 1;
+		RZN = 1;
 	case 2:
-		RZ = -1;
+		RZN = -1;
 	default:
 		error_method();
 		break;
@@ -326,13 +350,13 @@ void Lexer::D4( )
 
 void Lexer::D5a( )
 {
-	RZ = 1;
+	RZN = 1;
 	RSOS = state::D5;
 }
 
 void Lexer::D5b( )
 {
-	RP = RZ;
+	RP = RZN;
 	RSOS = state::D5;
 }
 
@@ -344,7 +368,7 @@ void Lexer::D5( )
 void Lexer::D5c( )
 {
 	RP *= 10;
-	RP += RZ;
+	RP += RZN;
 	RSOS = state::D5;
 }
 void Lexer::D6()
@@ -382,13 +406,13 @@ void Lexer::E2a()
 }
 void Lexer::E2b()
 {
-	RSTR = RZ;
+	RSTR = RZN;
 	RSOS = state::E2;
 }
 void Lexer::E2c()
 {
 	RSTR *= 10;
-	RSTR += RZ;
+	RSTR += RZN;
 	RSOS = state::E2;
 }
 void Lexer::F1()
@@ -411,7 +435,7 @@ void Lexer::F2()
 }
 void Lexer::F2a()
 {
-	RU = UTO + RZ;
+	RU = UTO + RZN;
 	RSOS = state::F2;
 }
 void Lexer::F3()
@@ -420,8 +444,8 @@ void Lexer::F3()
 }
 void Lexer::F3a()
 {
-	RZ = (RZ + 1) * 26;
-	RU += RZ;
+	RZN = (RZN + 1) * 26;
+	RU += RZN;
 	RSOS = state::F3;
 }
 void Lexer::G1()
@@ -439,7 +463,7 @@ void Lexer::H1()
 }
 void Lexer::H1a()
 {
-	ROT = RZ;
+	ROT = RZN;
 	RSOS = state::H1;
 }
 void Lexer::H1b()
@@ -472,7 +496,7 @@ void Lexer::H1f()
 }
 void Lexer::M1()
 {
-	if (m_transition_table[ROB].symbol == RZ)
+	if (m_transition_table[ROB].symbol == RZN)
 	{
 		(this->*m_transition_table[ROB].method)();
 	}
@@ -488,7 +512,7 @@ void Lexer::M1()
 }
 void Lexer::M2()
 {
-	if (RZ!=5)
+	if (RZN!=5)
 	{
 		DA1D();
 		B1b();
@@ -500,7 +524,7 @@ void Lexer::M2()
 }
 void Lexer::M3()
 {
-	if (RZ != 5)
+	if (RZN != 5)
 	{
 		DA2D();
 		B1b();
@@ -554,7 +578,7 @@ void Lexer::DA2D()
 }
 void Lexer::DA3D()
 {
-	if (RZN <0)
+	if (RZNN <0)
 	{
 		RP = -RP;
 	}
