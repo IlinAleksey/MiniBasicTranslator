@@ -302,31 +302,117 @@ void Lexer::A3e()
 	A3c();
 	RSOS = state::A3;
 }
-void A3f();
-void A3g();
+void Lexer::A3f()
+{
+	DA3D();
+	A3c();
+	RSOS = state::A3;
+}
+void Lexer::A3g()
+{
+	DA1E();
+	A3c();
+	RSOS = state::A3;
+}
 void B1();
-void B1a();
-void B1b();
-void B1c();
-void B1d();
-void B1e();
+void Lexer::B1a()
+{
+	ROB = m_init_vector[RZN - 'a'];
+	if (ROB == -1) error_method();   //Не уверен в необходимости ветки ELSE
+	else
+		RSOS = state::B1;
+}
+void Lexer::B1b()
+{
+	addLexem();
+	RSOS = state::B1;
+}
+void Lexer::B1c()
+{
+	DA3D();
+	RSOS = state::B1;
+}
+void Lexer::B1d()
+{
+	ROB++;
+	RSOS = state::B1;
+}
+void Lexer::B1e()
+{
+	DA1E();
+	B1b();
+	RSOS = state::B1;
+}
 void C1();
-void C1a();
-void С1b();
-void C2a();
-void C2b();
-void C2d();
+void Lexer::C1a()
+{
+	RKL = end_of_loop;
+	RSOS = state::C1;
+}
+void Lexer::С1b()
+{
+	//Нет такой функции
+}
+void Lexer::C2a()
+{
+	RKL = identifier;
+	RSOS = state::C2;
+}
+void Lexer::C2b()
+{
+	addLexem();
+	RSOS = state::C2;
+}
+void Lexer::C2d()
+{
+	RU = UTO + RZ;
+	RSOS = state::C2;
+}
 void C2();
 void D1();
-void D1a();
-void D1b();
-void D1c();
+void Lexer::D1a()
+{
+	RKL = identifier;
+	RCH = RZN;
+	RSOS = state::D1;
+}
+void Lexer::D1b()
+{
+	RCH *= 10;
+	RCH += RZN;
+	RSOS = state::D1;
+}
+void Lexer::D1c()
+{
+	addLexem();
+	RSOS = state::D1;
+}
 void D2();
-void D2a();
-void D2b();
-void D2c();
+void Lexer::D2a()
+{
+	RS++;
+	RCH *= 10;
+	RCH += RZN;
+	RSOS = state::D2;
+}
+void Lexer::D2b()
+{
+	RS = 1;
+	RCH = RZN;
+	RSOS = state::D2;
+
+}
+void Lexer::D2c()
+{
+	RS = 0;
+	RSOS = state::D2;
+}
 void D3();
-void D3a();
+void Lexer::D3a()
+{
+	RS = 0;
+	RSOS = state::D3;
+}
 void Lexer::D4a( )
 {
 	switch (RZN)
@@ -578,7 +664,7 @@ void Lexer::DA2D()
 }
 void Lexer::DA3D()
 {
-	if (RZNN <0)
+	if (RZ <0)   //Сделал RZ а не RZN(Максим)
 	{
 		RP = -RP;
 	}
