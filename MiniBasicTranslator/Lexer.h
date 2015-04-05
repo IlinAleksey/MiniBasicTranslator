@@ -64,7 +64,7 @@ class Lexer
 	int RSOS; //регистр состояния
 	int ROB; //регистр обнаружения
 	int RK; //регистр значения класса символа
-	std::string RSTR; //регистр строки
+	int RSTR; //регистр строки
 
 	
 	void A1( );
@@ -176,6 +176,7 @@ class Lexer
 	void error_method();
 	void addLexem();
 public:
+	void start(std::string filename);
 	Lexer();
 	~Lexer();
 };

@@ -200,7 +200,7 @@ void Lexer::A2o( )
 
 void Lexer::A2p( )
 {
-	int nw; //что это за твою мать
+	int nw; //что это
 	switch (ROT)
 	{
 	case less:
@@ -271,6 +271,37 @@ void Lexer::A2u( )
 	RKL = lexeme_token_class::TO;
 	RSOS = state::A2;
 }
+void A3();
+void A3a();
+void A3b();
+void A3c();
+void A3d();
+void A3e();
+void A3f();
+void A3g();
+void B1();
+void B1a();
+void B1b();
+void B1c();
+void B1d();
+void B1e();
+void C1();
+void C1a();
+void С1b();
+void C2a();
+void C2b();
+void C2d();
+void C2();
+void D1();
+void D1a();
+void D1b();
+void D1c();
+void D2();
+void D2a();
+void D2b();
+void D2c();
+void D3();
+void D3a();
 void Lexer::D4a( )
 {
 	switch (RZ)
@@ -306,7 +337,6 @@ void Lexer::D5b( )
 
 void Lexer::D5( )
 {
-
 	RSOS = state::D5;
 }
 
@@ -316,3 +346,83 @@ void Lexer::D5c( )
 	RP += RZ;
 	RSOS = state::D5;
 }
+void Lexer::D6()
+{
+	addLexem();
+	RSOS = state::D6;
+}
+void Lexer::D6a()
+{
+
+	RSOS = state::D6;
+}
+void Lexer::E1()
+{
+	RSOS = state::E1;
+}
+void Lexer::E1a()
+{
+	RKL = lexeme_token_class::transfer;
+	RSOS = state::E1;
+}
+void Lexer::E1b()
+{
+	RKL = lexeme_token_class::transfer_sub;
+	RSOS = state::E1;
+}
+void Lexer::E2()
+{
+	RSOS = state::E2;
+}
+void Lexer::E2a()
+{
+	//Загрузить СТРОКУ в РЕГИСТР КЛАССА
+	//Что такое СТРОКА?
+}
+void Lexer::E2b()
+{
+	RSTR = RZ;
+	RSOS = state::E2;
+}
+void Lexer::E2c()
+{
+	RSTR *= 10;
+	RSTR += RZ;
+	RSOS = state::E2;
+}
+void F1();
+void F1a();
+void F1b();
+void F2();
+void F2a();
+void F2b();
+void F3();
+void F3a();
+void G1();
+void G1a();
+void H1();
+void H1a();
+void H1b();
+void H1c();
+void H1d();
+void H1e();
+void H1f();
+void M1();
+void M2();
+void M3();
+void H1a();
+void EXIT1();
+void EXIT2();
+void EXIT3();
+void EXIT4();
+void EXIT5();
+void EXIT6();
+void DA1D();
+void DA1E();
+void DA2D();
+void DA3D();
+void DA1LOOP();
+void error_method();
+void addLexem();
+
+void start(std::string filename);
