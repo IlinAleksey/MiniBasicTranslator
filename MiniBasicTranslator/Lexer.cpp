@@ -685,3 +685,4 @@ void Lexer::addLexem()
 }
 
 void start(std::string filename);
+void testing();
