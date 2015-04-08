@@ -69,6 +69,8 @@ class Lexer
 	int RSTR; //регистр строки
 	int RU; //Регистр указателя
 
+	lexer_method CUR_STATE;
+
 	
 	void A1( );
 	void A1a( );

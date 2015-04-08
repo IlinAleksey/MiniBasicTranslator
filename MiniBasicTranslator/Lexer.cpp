@@ -700,8 +700,26 @@ void Lexer::error_method()
 }
 void Lexer::addLexem()
 {
-	UTL[NTL] = lexeme_token{ lexeme_token_class(RKL), RZN };
-	NTL++;
+	switch (RKL)
+	{
+	case 3:
+		UTL[NTL] = lexeme_token{ lexeme_token_class(RKL), RZN };
+		NTL++;
+		break;
+	case 4:
+		UTL[NTL] = lexeme_token{ lexeme_token_class(RKL), ROT };
+		NTL++;
+		break;
+	case 1: case 2: case 5: case 6: case 7: case 8: case 9:
+		UTL[NTL] = lexeme_token{ lexeme_token_class(RKL), RU };
+		NTL++;
+		break;
+	default:
+		UTL[NTL] = lexeme_token{ lexeme_token_class(RKL), RZN };
+		NTL++;
+		break;
+	}
+
 }
 void Lexer::start(std::string filename)
 {
@@ -709,8 +727,15 @@ void Lexer::start(std::string filename)
 	std::string line;
 	while (std::getline(infile, line))
 	{
-
+		for (std::string::iterator it = line.begin(); it != line.end(); it++)
+		{
+			(this->*CUR_STATE)();
+		}
+		RK = transliterator_token_class::newline;
+		(this->*CUR_STATE)();
 	}
+	RK = transliterator_token_class::eof;
+	(this->*CUR_STATE)();
 }
 void  Lexer::calculateConstant()
 {
