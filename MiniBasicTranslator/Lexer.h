@@ -24,17 +24,6 @@ class Lexer
 		transliterator_token_class m_class;
 		int m_value;
 	};
-	struct id
-	{
-		int m_name;
-		float m_value;
-	};
-	enum state
-	{
-		A1_state, A2_state, A3_state, B1_state, C1_state, C2_state, D1_state,
-		D2_state, D3_state, D4_state, D5_state, D6_state, E1_state, E2_state,
-		F1_state, F2_state, F3_state, G1_state, H1_state, ERROR_state, LAST_STATE
-	};
 	typedef void(Lexer::*lexer_method)();
 	struct transition_table_element
 	{
@@ -52,7 +41,7 @@ class Lexer
 	transliterator_token transliterator(char symbol);
 	
 	Hashtable UTS;
-	id* UTO;
+	float* UTO;
 	lexeme_token* UTL;
 	int NTO; //Указатель на первый свободный элемент в ТО
 	int NTL; //Указатель на первый свободный элемент в ТL
@@ -63,14 +52,32 @@ class Lexer
 	int RKL; //регистр класса лексем
 	int ROT; //регистр значения отношения
 	int RZN; //регистр значения символа
-	int RSOS; //регистр состояния
+	lexer_method RSOS; //регистр состояния
 	int ROB; //регистр обнаружения
 	int RK; //регистр значения класса символа
 	int RSTR; //регистр строки
 	int RU; //Регистр указателя
 
-	lexer_method CUR_STATE;
 
+	void A1_state();
+	void A2_state();
+	void A3_state();
+	void B1_state();
+	void C1_state();
+	void C2_state();
+	void D1_state();
+	void D2_state();
+	void D3_state();
+	void D4_state();
+	void D5_state();
+	void D6_state();
+	void E1_state();
+	void E2_state();
+	void F1_state();
+	void F2_state();
+	void F3_state();
+	void G1_state();
+	void H1_state();
 	
 	void A1( );
 	void A1a( );
