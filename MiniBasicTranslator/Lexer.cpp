@@ -1,7 +1,7 @@
 #include "Lexer.h"
 
 
-Lexer::Lexer() :
+Lexer::Lexer()
 {
 	m_init_vector = {
 		0, //a
@@ -57,9 +57,9 @@ Lexer::Lexer() :
 
 	};
 	UTO = new id[500];
-	NTO = &UTO[278];
+	NTO = 278;
 	UTL = new lexeme_token[100];
-	NTL = UTL;
+	NTL = 0;
 }
 
 
@@ -365,7 +365,7 @@ void Lexer::C2b()
 }
 void Lexer::C2d()
 {
-	RU = UTO + RZ;
+	RU = RZN;
 	RSOS = state::C2;
 }
 void C2();
@@ -521,7 +521,7 @@ void Lexer::F2()
 }
 void Lexer::F2a()
 {
-	RU = UTO + RZN;
+	RU = RZN;
 	RSOS = state::F2;
 }
 void Lexer::F3()
@@ -655,7 +655,15 @@ void Lexer::DA1D()
 }
 void Lexer::DA1E()
 {
-	
+	int pos = UTS.find(RSTR);
+	if (pos != -1)
+	{
+		error_method();
+	}
+	else
+	{
+		RZN = UTS.add(RSTR, NTL);
+	}
 }
 void Lexer::DA2D()
 {
