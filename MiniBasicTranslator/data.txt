@@ -1,1 +1,2 @@
-10 LET n=7
+10 LET N=7
+30 IF N<M GOTO 150

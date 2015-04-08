@@ -186,6 +186,7 @@ class Lexer
 
 	//logging functions
 	void write_log_file();
+	std::string log_message;
 public:
 	void start(std::string filename);
 	Lexer();

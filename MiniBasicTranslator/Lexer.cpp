@@ -71,6 +71,14 @@ Lexer::Lexer()
 	}
 	NTL = 0;
 	RSOS = &Lexer::A1_state;
+	RSTR = 0;
+	RU = 0;
+	ROB = 0;
+	RZ = 0;
+	RP = 0;
+	ROT = 0;
+	RS = 0;
+	RCH = 0;
 }
 
 
@@ -1017,30 +1025,35 @@ void Lexer::A2p( )
 void Lexer::A2q( )
 {
 	RKL = lexeme_token_class::END;
+	A2b();
 	RSOS = &Lexer::A2_state;
 }
 
 void Lexer::A2r( )
 {
 	RKL = lexeme_token_class::IF;
+	A2b();
 	RSOS = &Lexer::A2_state;
 }
 
 void Lexer::A2s( )
 {
 	RKL = lexeme_token_class::RETURN;
+	A2b();
 	RSOS = &Lexer::A2_state;
 }
 
 void Lexer::A2t( )
 {
 	RKL = lexeme_token_class::STEP;
+	A2b();
 	RSOS = &Lexer::A2_state;
 }
 
 void Lexer::A2u( )
 {
 	RKL = lexeme_token_class::TO;
+	A2b();
 	RSOS = &Lexer::A2_state;
 }
 void Lexer::A3()
@@ -1094,10 +1107,9 @@ void Lexer::B1()
 }
 void Lexer::B1a()
 {
-	ROB = m_init_vector[RZN - 'a'];
-	if (ROB == -1) error_method();   //Не уверен в необходимости ветки ELSE
-	else
-		RSOS = &Lexer::B1_state;
+	ROB = m_init_vector[RZN - 1];
+	if (ROB == 0) error_method();   //Не уверен в необходимости ветки ELSE
+	RSOS = &Lexer::B1_state;
 }
 void Lexer::B1b()
 {
@@ -1118,6 +1130,7 @@ void Lexer::B1e()
 {
 	DA1E();
 	B1b();
+	B1a();
 	RSOS = &Lexer::B1_state;
 }
 void Lexer::C1()
@@ -1280,6 +1293,7 @@ void Lexer::E2()
 void Lexer::E2a()
 {
 	RKL = lexeme_token_class::label;
+	RSTR = RZN;
 	RSOS = &Lexer::E2_state;
 }
 void Lexer::E2b()
@@ -1342,11 +1356,13 @@ void Lexer::H1()
 void Lexer::H1a()
 {
 	ROT = RZN;
+	RKL = lexeme_token_class::relationship_operation;
 	RSOS = &Lexer::H1_state;
 }
 void Lexer::H1b()
 {
 	addLexem();
+	H1a();
 	RSOS = &Lexer::H1_state;
 }
 void Lexer::H1c()
@@ -1374,7 +1390,7 @@ void Lexer::H1f()
 }
 void Lexer::M1()
 {
-	if (m_transition_table[ROB].symbol == RZN)
+	if (m_transition_table[ROB].symbol - 'A' +1 == RZN)
 	{
 		(this->*m_transition_table[ROB].method)();
 	}
@@ -1454,7 +1470,7 @@ void Lexer::DA1E()
 	}
 	else
 	{
-		RZN = UTS.add(RSTR, NTL);
+		RU = UTS.add(RSTR, NTL);
 	}
 }
 void Lexer::DA2D()
@@ -1500,10 +1516,16 @@ void Lexer::addLexem()
 		NTL++;
 		break;
 	}
-
+	log_message += "Lexeme added: " + std::to_string(RKL) + '\n';
 }
 void Lexer::start(std::string filename)
 {
+	//logging
+	std::ofstream ofs;
+	ofs.open("log.txt", std::ofstream::out | std::ofstream::trunc);
+	ofs.close();
+
+
 	std::ifstream infile(filename);
 	std::string line;
 	while (std::getline(infile, line))
@@ -1515,16 +1537,21 @@ void Lexer::start(std::string filename)
 			(this->*RSOS)();
 		}
 		RK = transliterator_token_class::newline;
+		write_log_file();
 		(this->*RSOS)();
 	}
 	RK = transliterator_token_class::eof;
+	write_log_file();
 	(this->*RSOS)();
+
+	write_log_file();
 }
 void  Lexer::calculateConstant()
 {
 	RU = NTO;
 	UTO[NTO] = RCH * pow(10, RP);
 	NTO++;
+	addLexem();
 }
 
 void Lexer::transliterator(char c)
@@ -1565,14 +1592,17 @@ void Lexer::transliterator(char c)
 		break;
 	case '=':
 		RZN = 1;
+		ROT = 1;
 		RK = transliterator_token_class::relationship;
 		break;
 	case '<':
 		RZN = 2;
+		ROT = 2;
 		RK = transliterator_token_class::relationship;
 		break;
 	case '>':
 		RZN = 3;
+		ROT = 3;
 		RK = transliterator_token_class::relationship;
 		break;
 	case '(':
@@ -1587,7 +1617,7 @@ void Lexer::transliterator(char c)
 		RZN = 0;
 		RK = transliterator_token_class::dot;
 		break;
-	case ' ': case 9:
+	case ' ':
 		RZN = 0;
 		RK = transliterator_token_class::CR;
 		break;
@@ -1600,7 +1630,7 @@ void Lexer::transliterator(char c)
 
 void Lexer::write_log_file()
 {
-	std::ofstream log_file("log.txt");
+	std::ofstream log_file("log.txt", std::ios_base::app);
 	log_file << "NTO: "<<NTO<<std::endl;
 	log_file << "NTL: " << NTL << std::endl;
 	log_file << "RCH: " << RCH << std::endl;
@@ -1614,6 +1644,8 @@ void Lexer::write_log_file()
 	log_file << "RK: " << RK << std::endl;
 	log_file << "RSTR: " << RSTR << std::endl;
 	log_file << "RU: " << RU << std::endl;
+	log_file << log_message;
 	log_file << "---------------------------------------"<< std::endl;
 	log_file.close();
+	log_message = "";
 }
