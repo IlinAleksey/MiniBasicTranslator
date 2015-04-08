@@ -196,16 +196,23 @@ void Lexer::A2n( )
 
 void Lexer::A2o( )
 {
-		//нужно доделать!!
+	if (RZN != 1)
+	{
+		error_method();
+	}
+	else
+	{
+		A2b();
+	}
 }
 
 void Lexer::A2p( )
 {
-	int new_relationship; //что это
+	int new_relationship;
 	switch (ROT)
 	{
 	case less:
-		switch (RZN) //теперь c какое-то
+		switch (RZN)
 		{
 		case equal:
 			new_relationship = lessorequal;
@@ -487,8 +494,8 @@ void Lexer::E2()
 }
 void Lexer::E2a()
 {
-	//Загрузить СТРОКУ в РЕГИСТР КЛАССА
-	//Что такое СТРОКА?
+	RKL = lexeme_token_class::label;
+	RSOS = state::E2;
 }
 void Lexer::E2b()
 {
@@ -594,7 +601,6 @@ void Lexer::M1()
 	{
 		error_method();
 	}
-	//"Остаться в состоянии М1" Где такое состояние?
 }
 void Lexer::M2()
 {
@@ -689,15 +695,6 @@ void Lexer::error_method()
 }
 void Lexer::addLexem()
 {
-
-}
-
-void start(std::string filename);
-void testing()
-{
-	int g = 0;
-	float r;
-	float g;
-
-	int x = 65;
+	UTL[NTL] = lexeme_token{ lexeme_token_class(RKL), RZN };
+	NTL++;
 }
