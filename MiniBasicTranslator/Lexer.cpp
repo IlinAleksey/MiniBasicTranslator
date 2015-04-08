@@ -62,6 +62,7 @@ Lexer::Lexer()
 	NTO = 278;
 	UTL = new lexeme_token[100];
 	NTL = 0;
+	RSOS = A1_state;
 }
 
 
@@ -70,6 +71,759 @@ Lexer::~Lexer()
 	delete [] UTO;
 	delete [] UTL;
 }
+
+void Lexer::A1_state()
+{
+	switch (RK)
+	{
+	case Lexer::letter:
+		break;
+	case Lexer::digit:
+		E2a();
+		break;
+	case Lexer::arithmetic:
+		break;
+	case Lexer::relationship:
+		break;
+	case Lexer::left_par:
+		break;
+	case Lexer::right_par:
+		break;
+	case Lexer::dot:
+		break;
+	case Lexer::CR:
+		A1();
+		break;
+	case Lexer::newline:
+		A1();
+		break;
+	case Lexer::eof:
+		EXIT1();
+		break;
+	case Lexer::error:
+		break;
+	case Lexer::last_transliterator_token_class:
+		break;
+	default:
+		break;
+	}
+}
+void Lexer::A2_state()
+{
+	switch (RK)
+	{
+	case Lexer::letter:
+		C2a();
+		break;
+	case Lexer::digit:
+		D1a();
+		break;
+	case Lexer::arithmetic:
+		A2a();
+		break;
+	case Lexer::relationship:
+		H1a();
+		break;
+	case Lexer::left_par:
+		A2h();
+		break;
+	case Lexer::right_par:
+		A3b();
+		break;
+	case Lexer::dot:
+		D6();
+		break;
+	case Lexer::CR:
+		A2();
+		break;
+	case Lexer::newline:
+		A1();
+		break;
+	case Lexer::eof:
+		EXIT1();
+		break;
+	case Lexer::error:
+		break;
+	case Lexer::last_transliterator_token_class:
+		break;
+	default:
+		break;
+	}
+}
+void Lexer::A3_state()
+{
+	switch (RK)
+	{
+	case Lexer::letter:
+		B1a();
+		break;
+	case Lexer::digit:
+		D1a();
+		break;
+	case Lexer::arithmetic:
+		A2a();
+		break;
+	case Lexer::relationship:
+		H1a();
+		break;
+	case Lexer::left_par:
+		A2h();
+		break;
+	case Lexer::right_par:
+		A3b();
+		break;
+	case Lexer::dot:
+		D6();
+		break;
+	case Lexer::CR:
+		A3();
+		break;
+	case Lexer::newline:
+		A1();
+		break;
+	case Lexer::eof:
+		EXIT1();
+		break;
+	case Lexer::error:
+		break;
+	case Lexer::last_transliterator_token_class:
+		break;
+	default:
+		break;
+	}
+}
+void Lexer::B1_state()
+{
+	switch (RK)
+	{
+	case Lexer::letter:
+		M1();
+		break;
+	case Lexer::digit:
+		break;
+	case Lexer::arithmetic:
+		break;
+	case Lexer::relationship:
+		break;
+	case Lexer::left_par:
+		break;
+	case Lexer::right_par:
+		break;
+	case Lexer::dot:
+		break;
+	case Lexer::CR:
+		B1();
+		break;
+	case Lexer::newline:
+		break;
+	case Lexer::eof:
+		break;
+	case Lexer::error:
+		break;
+	case Lexer::last_transliterator_token_class:
+		break;
+	default:
+		break;
+	}
+}
+void Lexer::C1_state()
+{
+	switch (RK)
+	{
+	case Lexer::letter:
+		C2d();
+		break;
+	case Lexer::digit:
+		break;
+	case Lexer::arithmetic:
+		break;
+	case Lexer::relationship:
+		break;
+	case Lexer::left_par:
+		break;
+	case Lexer::right_par:
+		break;
+	case Lexer::dot:
+		break;
+	case Lexer::CR:
+		C1();
+		break;
+	case Lexer::newline:
+		break;
+	case Lexer::eof:
+		EXIT3();
+		break;
+	case Lexer::error:
+		break;
+	case Lexer::last_transliterator_token_class:
+		break;
+	default:
+		break;
+	}
+}
+void Lexer::C2_state()
+{
+	switch (RK)
+	{
+	case Lexer::letter:
+		B1b();
+		break;
+	case Lexer::digit:
+		A3a();
+		break;
+	case Lexer::arithmetic:
+		A2g();
+		break;
+	case Lexer::relationship:
+		H1b();
+		break;
+	case Lexer::left_par:
+		A2k();
+		break;
+	case Lexer::right_par:
+		A3c();
+		break;
+	case Lexer::dot:
+		break;
+	case Lexer::CR:
+		C2();
+		break;
+	case Lexer::newline:
+		A1a();
+		break;
+	case Lexer::eof:
+		EXIT4();
+		break;
+	case Lexer::error:
+		break;
+	case Lexer::last_transliterator_token_class:
+		break;
+	default:
+		break;
+	}
+}
+void Lexer::D1_state()
+{
+	switch (RK)
+	{
+	case Lexer::letter:
+		M2();
+		break;
+	case Lexer::digit:
+		D1b();
+		break;
+	case Lexer::arithmetic:
+		A2c();
+		break;
+	case Lexer::relationship:
+		H1c();
+		break;
+	case Lexer::left_par:
+		A2l();
+		break;
+	case Lexer::right_par:
+		A3d();
+		break;
+	case Lexer::dot:
+		D2c();
+		break;
+	case Lexer::CR:
+		D1();
+		break;
+	case Lexer::newline:
+		A1b();
+		break;
+	case Lexer::eof:
+		EXIT3();
+		break;
+	case Lexer::error:
+		break;
+	case Lexer::last_transliterator_token_class:
+		break;
+	default:
+		break;
+	}
+}
+void Lexer::D2_state()
+{
+	switch (RK)
+	{
+	case Lexer::letter:
+		M3();
+		break;
+	case Lexer::digit:
+		D2a();
+		break;
+	case Lexer::arithmetic:
+		A2d();
+		break;
+	case Lexer::relationship:
+		H1d();
+		break;
+	case Lexer::left_par:
+		A2m();
+		break;
+	case Lexer::right_par:
+		A3e();
+		break;
+	case Lexer::dot:
+		break;
+	case Lexer::CR:
+		D2();
+		break;
+	case Lexer::newline:
+		A1c();
+		break;
+	case Lexer::eof:
+		EXIT4();
+		break;
+	case Lexer::error:
+		break;
+	case Lexer::last_transliterator_token_class:
+		break;
+	default:
+		break;
+	}
+}
+void Lexer::D3_state()
+{
+	switch (RK)
+	{
+	case Lexer::letter:
+		break;
+	case Lexer::digit:
+		D5a();
+		break;
+	case Lexer::arithmetic:
+		D4a();
+		break;
+	case Lexer::relationship:
+		break;
+	case Lexer::left_par:
+		break;
+	case Lexer::right_par:
+		break;
+	case Lexer::dot:
+		break;
+	case Lexer::CR:
+		D3();
+		break;
+	case Lexer::newline:
+		break;
+	case Lexer::eof:
+		break;
+	case Lexer::error:
+		break;
+	case Lexer::last_transliterator_token_class:
+		break;
+	default:
+		break;
+	}
+}
+void Lexer::D4_state()
+{
+	switch (RK)
+	{
+	case Lexer::letter:
+		break;
+	case Lexer::digit:
+		D5b();
+		break;
+	case Lexer::arithmetic:
+		break;
+	case Lexer::relationship:
+		break;
+	case Lexer::left_par:
+		break;
+	case Lexer::right_par:
+		break;
+	case Lexer::dot:
+		break;
+	case Lexer::CR:
+		D4();
+		break;
+	case Lexer::newline:
+		break;
+	case Lexer::eof:
+		break;
+	case Lexer::error:
+		break;
+	case Lexer::last_transliterator_token_class:
+		break;
+	default:
+		break;
+	}
+}
+void Lexer::D5_state()
+{
+	switch (RK)
+	{
+	case Lexer::letter:
+		B1c();
+		break;
+	case Lexer::digit:
+		D5c();
+		break;
+	case Lexer::arithmetic:
+		A2e();
+		break;
+	case Lexer::relationship:
+		H1c();
+		break;
+	case Lexer::left_par:
+		A2n();
+		break;
+	case Lexer::right_par:
+		A3f();
+		break;
+	case Lexer::dot:
+		break;
+	case Lexer::CR:
+		D5();
+		break;
+	case Lexer::newline:
+		A1d();
+		break;
+	case Lexer::eof:
+		EXIT5();
+		break;
+	case Lexer::error:
+		break;
+	case Lexer::last_transliterator_token_class:
+		break;
+	default:
+		break;
+	}
+}
+void Lexer::D6_state()
+{
+	switch (RK)
+	{
+	case Lexer::letter:
+		break;
+	case Lexer::digit:
+		D2b();
+		break;
+	case Lexer::arithmetic:
+		break;
+	case Lexer::relationship:
+		break;
+	case Lexer::left_par:
+		break;
+	case Lexer::right_par:
+		break;
+	case Lexer::dot:
+		break;
+	case Lexer::CR:
+		D6();
+		break;
+	case Lexer::newline:
+		break;
+	case Lexer::eof:
+		break;
+	case Lexer::error:
+		break;
+	case Lexer::last_transliterator_token_class:
+		break;
+	default:
+		break;
+	}
+}
+void Lexer::E1_state()
+{
+	switch (RK)
+	{
+	case Lexer::letter:
+		break;
+	case Lexer::digit:
+		E2b();
+		break;
+	case Lexer::arithmetic:
+		break;
+	case Lexer::relationship:
+		break;
+	case Lexer::left_par:
+		break;
+	case Lexer::right_par:
+		break;
+	case Lexer::dot:
+		break;
+	case Lexer::CR:
+		E1();
+		break;
+	case Lexer::newline:
+		break;
+	case Lexer::eof:
+		break;
+	case Lexer::error:
+		break;
+	case Lexer::last_transliterator_token_class:
+		break;
+	default:
+		break;
+	}
+}
+void Lexer::E2_state()
+{
+	switch (RK)
+	{
+	case Lexer::letter:
+		B1e();
+		break;
+	case Lexer::digit:
+		E2c();
+		break;
+	case Lexer::arithmetic:
+		A2f();
+		break;
+	case Lexer::relationship:
+		H1f();
+		break;
+	case Lexer::left_par:
+		A2j();
+		break;
+	case Lexer::right_par:
+		A3g();
+		break;
+	case Lexer::dot:
+		break;
+	case Lexer::CR:
+		E2();
+		break;
+	case Lexer::newline:
+		A1e();
+		break;
+	case Lexer::eof:
+		break;
+	case Lexer::error:
+		break;
+	case Lexer::last_transliterator_token_class:
+		break;
+	default:
+		break;
+	}
+}
+void Lexer::F1_state()
+{
+	switch (RK)
+	{
+	case Lexer::letter:
+		F2a();
+		break;
+	case Lexer::digit:
+		break;
+	case Lexer::arithmetic:
+		break;
+	case Lexer::relationship:
+		break;
+	case Lexer::left_par:
+		break;
+	case Lexer::right_par:
+		break;
+	case Lexer::dot:
+		break;
+	case Lexer::CR:
+		F1();
+		break;
+	case Lexer::newline:
+		break;
+	case Lexer::eof:
+		break;
+	case Lexer::error:
+		break;
+	case Lexer::last_transliterator_token_class:
+		break;
+	default:
+		break;
+	}
+}
+void Lexer::F2_state()
+{
+	switch (RK)
+	{
+	case Lexer::letter:
+		break;
+	case Lexer::digit:
+		F3a();
+		break;
+	case Lexer::arithmetic:
+		break;
+	case Lexer::relationship:
+		A2o();
+		break;
+	case Lexer::left_par:
+		break;
+	case Lexer::right_par:
+		break;
+	case Lexer::dot:
+		break;
+	case Lexer::CR:
+		F2();
+		break;
+	case Lexer::newline:
+		break;
+	case Lexer::eof:
+		break;
+	case Lexer::error:
+		break;
+	case Lexer::last_transliterator_token_class:
+		break;
+	default:
+		break;
+	}
+}
+void Lexer::F3_state()
+{
+	switch (RK)
+	{
+	case Lexer::letter:
+		break;
+	case Lexer::digit:
+		break;
+	case Lexer::arithmetic:
+		break;
+	case Lexer::relationship:
+		A2o();
+		break;
+	case Lexer::left_par:
+		break;
+	case Lexer::right_par:
+		break;
+	case Lexer::dot:
+		break;
+	case Lexer::CR:
+		F3();
+		break;
+	case Lexer::newline:
+		break;
+	case Lexer::eof:
+		break;
+	case Lexer::error:
+		break;
+	case Lexer::last_transliterator_token_class:
+		break;
+	default:
+		break;
+	}
+}
+void Lexer::G1_state()
+{
+	switch (RK)
+	{
+	case Lexer::letter:
+		G1();
+		break;
+	case Lexer::digit:
+		G1();
+		break;
+	case Lexer::arithmetic:
+		G1();
+		break;
+	case Lexer::relationship:
+		G1();
+		break;
+	case Lexer::left_par:
+		G1();
+		break;
+	case Lexer::right_par:
+		G1();
+		break;
+	case Lexer::dot:
+		G1();
+		break;
+	case Lexer::CR:
+		G1();
+		break;
+	case Lexer::newline:
+		A1();
+		break;
+	case Lexer::eof:
+		EXIT1();
+		break;
+	case Lexer::error:
+		break;
+	case Lexer::last_transliterator_token_class:
+		break;
+	default:
+		break;
+	}
+}
+void Lexer::H1_state()
+{
+	switch (RK)
+	{
+	case Lexer::letter:
+		C2b();
+		break;
+	case Lexer::digit:
+		D1c();
+		break;
+	case Lexer::arithmetic:
+		A2g();
+		break;
+	case Lexer::relationship:
+		A2p();
+		break;
+	case Lexer::left_par:
+		A2k();
+		break;
+	case Lexer::right_par:
+		A3c();
+		break;
+	case Lexer::dot:
+		D6a();
+		break;
+	case Lexer::CR:
+		H1a();
+		break;
+	case Lexer::newline:
+		A1a();
+		break;
+	case Lexer::eof:
+		EXIT2();
+		break;
+	case Lexer::error:
+		break;
+	case Lexer::last_transliterator_token_class:
+		break;
+	default:
+		break;
+	}
+}
+void Lexer::error_state()
+{
+	switch (RK)
+	{
+	case Lexer::letter:
+		break;
+	case Lexer::digit:
+		break;
+	case Lexer::arithmetic:
+		break;
+	case Lexer::relationship:
+		break;
+	case Lexer::left_par:
+		break;
+	case Lexer::right_par:
+		break;
+	case Lexer::dot:
+		break;
+	case Lexer::CR:
+		break;
+	case Lexer::newline:
+		break;
+	case Lexer::eof:
+		break;
+	case Lexer::error:
+		break;
+	case Lexer::last_transliterator_token_class:
+		break;
+	default:
+		break;
+	}
+}
+
+
 
 void Lexer::A1b( )
 {
@@ -756,7 +1510,7 @@ void Lexer::transliterator(char c)
 	if (c <= 'Z' && c >= 'A')
 	{
 		RZN = c - 'A' + 1;
-		RK = transliterator_token_class::digit;
+		RK = transliterator_token_class::letter;
 		return;
 	}
 	switch (c)

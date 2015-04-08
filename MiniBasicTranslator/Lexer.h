@@ -73,6 +73,7 @@ class Lexer
 	void F3_state();
 	void G1_state();
 	void H1_state();
+	void error_state();
 	
 	void A1( );
 	void A1a( );
