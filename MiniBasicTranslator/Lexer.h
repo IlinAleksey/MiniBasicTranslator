@@ -17,13 +17,9 @@ class Lexer
 	};
 	enum transliterator_token_class
 	{
-		letter, digit, arithmetic, relationship, left_par, right_par, dot, CR, newline, eof, last_transliterator_token_class
+		letter, digit, arithmetic, relationship, left_par, right_par, dot, CR, newline, eof, error, last_transliterator_token_class
 	};
-	struct transliterator_token
-	{
-		transliterator_token_class m_class;
-		int m_value;
-	};
+	
 	typedef void(Lexer::*lexer_method)();
 	struct transition_table_element
 	{
@@ -38,7 +34,6 @@ class Lexer
 	{ 
 		equal, less, more, notequal, lessorequal, moreorequal 
 	};
-	transliterator_token transliterator(char symbol);
 	
 	Hashtable UTS;
 	float* UTO;
@@ -186,6 +181,7 @@ class Lexer
 	void error_method();
 	void addLexem();
 	void calculateConstant();
+	void transliterator(char c);
 public:
 	void start(std::string filename);
 	Lexer();

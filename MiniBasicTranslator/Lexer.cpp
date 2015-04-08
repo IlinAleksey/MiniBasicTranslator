@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <math.h>
+#include <ctype.h>
 Lexer::Lexer()
 {
 	m_init_vector = {
@@ -742,4 +743,75 @@ void  Lexer::calculateConstant()
 	RU = NTO;
 	UTO[NTO] = RCH * pow(10, RP);
 	NTO++;
+}
+
+void Lexer::transliterator(char c)
+{
+	if (isdigit(c))
+	{
+		RZN = c - '0';
+		RK = transliterator_token_class::digit;
+		return;
+	}
+	if (c <= 'Z' && c >= 'A')
+	{
+		RZN = c - 'A' + 1;
+		RK = transliterator_token_class::digit;
+		return;
+	}
+	switch (c)
+	{
+	case '+':
+		RZN = 1;
+		RK = transliterator_token_class::arithmetic;
+		break;
+	case '-':
+		RZN = 2;
+		RK = transliterator_token_class::arithmetic;
+		break;
+	case '*':
+		RZN = 3;
+		RK = transliterator_token_class::arithmetic;
+		break;
+	case '/':
+		RZN = 4;
+		RK = transliterator_token_class::arithmetic;
+		break;
+	case '%':
+		RZN = 5;
+		RK = transliterator_token_class::arithmetic;
+		break;
+	case '=':
+		RZN = 1;
+		RK = transliterator_token_class::relationship;
+		break;
+	case '<':
+		RZN = 2;
+		RK = transliterator_token_class::relationship;
+		break;
+	case '>':
+		RZN = 3;
+		RK = transliterator_token_class::relationship;
+		break;
+	case '(':
+		RZN = 0;
+		RK = transliterator_token_class::left_par;
+		break;
+	case ')':
+		RZN = 0;
+		RK = transliterator_token_class::right_par;
+		break;
+	case '.':
+		RZN = 0;
+		RK = transliterator_token_class::dot;
+		break;
+	case ' ': case 9:
+		RZN = 0;
+		RK = transliterator_token_class::CR;
+		break;
+
+	default:
+		RK = transliterator_token_class::error;
+		break;
+	}
 }
