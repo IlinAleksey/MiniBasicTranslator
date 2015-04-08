@@ -62,7 +62,7 @@ Lexer::Lexer()
 	NTO = 278;
 	UTL = new lexeme_token[100];
 	NTL = 0;
-	RSOS = A1_state;
+	RSOS = &Lexer::A1_state;
 }
 
 
@@ -828,68 +828,68 @@ void Lexer::error_state()
 void Lexer::A1b( )
 {
 	DA1D( );
-	RSOS = A1_state;
+	RSOS = &Lexer::A1_state;
 }
 
 void Lexer::A1a( )
 {
 	addLexem();
-	RSOS = A1_state;
+	RSOS = &Lexer::A1_state;
 }
 
 void Lexer::A1( )
 {
-	RSOS = A1_state;
+	RSOS = &Lexer::A1_state;
 }
 
 void Lexer::A1c( )
 {
 	DA1D( );
 	A1a( );
-	RSOS = A1_state;
+	RSOS = &Lexer::A1_state;
 }
 
 void Lexer::A1d( )
 {
 	DA3D( );
 	A1a( );
-	RSOS = A1_state;
+	RSOS = &Lexer::A1_state;
 }
 
 void Lexer::A1e( )
 {
 	DA1E( );
 	A1a( );
-	RSOS = A1_state;
+	RSOS = &Lexer::A1_state;
 }
 
 void Lexer::A2c( )
 {
 	DA1D( );
-	RSOS = A2_state;
+	RSOS = &Lexer::A2_state;
 }
 
 void Lexer::A2g( )
 {
 	addLexem();
-	RSOS = A2_state;
+	RSOS = &Lexer::A2_state;
 }
 
 void Lexer::A2a( )
 {
 	RKL = arithmetic_operation;
-	RSOS = A2_state;
+	RSOS = &Lexer::A2_state;
 }
 
 void Lexer::A2b( )
 {
 	addLexem();
-	RSOS = A2_state;
+	RSOS = &Lexer::A2_state;
 }
 
 void Lexer::A2( )
 {
-	RSOS = A2_state;
+	RSOS = &Lexer::A2_state;
 }
 
 void Lexer::A2d( )
@@ -913,41 +913,41 @@ void Lexer::A2f( )
 void Lexer::A2j( )
 {
 	DA1E( );
-	RSOS = A2_state;
+	RSOS = &Lexer::A2_state;
 }
 
 void Lexer::A2k( )
 {
 	addLexem();
-	RSOS = A2_state;
+	RSOS = &Lexer::A2_state;
 }
 
 void Lexer::A2h( )
 {
 	RKL = left_parenthesis;
 	addLexem();
-	RSOS = A2_state;
+	RSOS = &Lexer::A2_state;
 }
 
 void Lexer::A2l( )
 {
 	DA1D( );
 	A2k( );
-	RSOS = A2_state;
+	RSOS = &Lexer::A2_state;
 }
 
 void Lexer::A2m( )
 {
 	DA2D( );
 	A2k( );
-	RSOS = A2_state;
+	RSOS = &Lexer::A2_state;
 }
 
 void Lexer::A2n( )
 {
 	DA3D( );
 	A2k( );
-	RSOS = A2_state;
+	RSOS = &Lexer::A2_state;
 }
 
 void Lexer::A2o( )
@@ -1003,114 +1003,123 @@ void Lexer::A2p( )
 		error_method();
 	}
 	ROT = new_relationship;
-	RSOS = A2_state;
+	RSOS = &Lexer::A2_state;
 }
 
 void Lexer::A2q( )
 {
 	RKL = lexeme_token_class::END;
-	RSOS = A2_state;
+	RSOS = &Lexer::A2_state;
 }
 
 void Lexer::A2r( )
 {
 	RKL = lexeme_token_class::IF;
-	RSOS = A2_state;
+	RSOS = &Lexer::A2_state;
 }
 
 void Lexer::A2s( )
 {
 	RKL = lexeme_token_class::RETURN;
-	RSOS = A2_state;
+	RSOS = &Lexer::A2_state;
 }
 
 void Lexer::A2t( )
 {
 	RKL = lexeme_token_class::STEP;
-	RSOS = A2_state;
+	RSOS = &Lexer::A2_state;
 }
 
 void Lexer::A2u( )
 {
 	RKL = lexeme_token_class::TO;
-	RSOS = A2_state;
+	RSOS = &Lexer::A2_state;
 }
-void A3();
+void Lexer::A3()
+{
+	RSOS = &Lexer::A3_state;
+}
 void Lexer::A3a()
 {
 	RZN = (RZN + 1) * 26;
 	RZN += RU;
 	addLexem();
-	RSOS = A3_state;
+	RSOS = &Lexer::A3_state;
 }
 void Lexer::A3b()
 {
 	RKL = right_parenthesis;
 	addLexem();
-	RSOS = A3_state;
+	RSOS = &Lexer::A3_state;
 }
 void Lexer::A3c()
 {
 	addLexem();
-	RSOS = A3_state;
+	RSOS = &Lexer::A3_state;
 }
 void Lexer::A3d()
 {
 	DA1D();
-	RSOS = A3_state;
+	RSOS = &Lexer::A3_state;
 }
 void Lexer::A3e()
 {
 	DA2D();
 	A3c();
-	RSOS = A3_state;
+	RSOS = &Lexer::A3_state;
 }
 void Lexer::A3f()
 {
 	DA3D();
 	A3c();
-	RSOS = A3_state;
+	RSOS = &Lexer::A3_state;
 }
 void Lexer::A3g()
 {
 	DA1E();
 	A3c();
-	RSOS = A3_state;
+	RSOS = &Lexer::A3_state;
 }
-void B1();
+void Lexer::B1()
+{
+	RSOS = &Lexer::B1_state;
+}
 void Lexer::B1a()
 {
 	ROB = m_init_vector[RZN - 'a'];
 	if (ROB == -1) error_method();   //Не уверен в необходимости ветки ELSE
 	else
-		RSOS = B1_state;
+		RSOS = &Lexer::B1_state;
 }
 void Lexer::B1b()
 {
 	addLexem();
-	RSOS = B1_state;
+	RSOS = &Lexer::B1_state;
 }
 void Lexer::B1c()
 {
 	DA3D();
-	RSOS = B1_state;
+	RSOS = &Lexer::B1_state;
 }
 void Lexer::B1d()
 {
 	ROB++;
-	RSOS = B1_state;
+	RSOS = &Lexer::B1_state;
 }
 void Lexer::B1e()
 {
 	DA1E();
 	B1b();
-	RSOS = B1_state;
+	RSOS = &Lexer::B1_state;
 }
-void C1();
+void Lexer::C1()
+{
+	RSOS = &Lexer::C1_state;
+}
 void Lexer::C1a()
 {
 	RKL = end_of_loop;
-	RSOS = C1_state;
+	RSOS = &Lexer::C1_state;
 }
 void Lexer::С1b()
 {
@@ -1119,65 +1128,74 @@ void Lexer::С1b()
 void Lexer::C2a()
 {
 	RKL = identifier;
-	RSOS = C2_state;
+	RSOS = &Lexer::C2_state;
 }
 void Lexer::C2b()
 {
 	addLexem();
-	RSOS = C2_state;
+	RSOS = &Lexer::C2_state;
 }
 void Lexer::C2d()
 {
 	RU = RZN;
-	RSOS = C2_state;
+	RSOS = &Lexer::C2_state;
 }
-void C2();
-void D1();
+void Lexer::C2()
+{
+	RSOS = &Lexer::C2_state;
+}
+void Lexer::D1()
+{
+	RSOS = &Lexer::D1_state;
+}
 void Lexer::D1a()
 {
 	RKL = identifier;
 	RCH = RZN;
-	RSOS = D1_state;
+	RSOS = &Lexer::D1_state;
 }
 void Lexer::D1b()
 {
 	RCH *= 10;
 	RCH += RZN;
-	RSOS = D1_state;
+	RSOS = &Lexer::D1_state;
 }
 void Lexer::D1c()
 {
 	addLexem();
-	RSOS = D1_state;
+	RSOS = &Lexer::D1_state;
 }
-void D2();
+void Lexer::D2()
+{
+	RSOS = &Lexer::D2_state;
+}
 void Lexer::D2a()
 {
 	RS++;
 	RCH *= 10;
 	RCH += RZN;
-	RSOS = D2_state;
+	RSOS = &Lexer::D2_state;
 }
 void Lexer::D2b()
 {
 	RS = 1;
 	RCH = RZN;
-	RSOS = D2_state;
+	RSOS = &Lexer::D2_state;
 
 }
 void Lexer::D2c()
 {
 	RS = 0;
-	RSOS = D2_state;
+	RSOS = &Lexer::D2_state;
 }
 void Lexer::D3()
 {
-	RSOS = D3_state;
+	RSOS = &Lexer::D3_state;
 }
 void Lexer::D3a()
 {
 	RS = 0;
-	RSOS = D3_state;
+	RSOS = &Lexer::D3_state;
 }
 void Lexer::D4a( )
 {
@@ -1191,160 +1209,160 @@ void Lexer::D4a( )
 		error_method();
 		break;
 	}
-	RSOS = D4_state;
+	RSOS = &Lexer::D4_state;
 }
 
 void Lexer::D4( )
 {
 
-	RSOS = D4_state;
+	RSOS = &Lexer::D4_state;
 }
 
 void Lexer::D5a( )
 {
 	RZN = 1;
-	RSOS = D5_state;
+	RSOS = &Lexer::D5_state;
 }
 
 void Lexer::D5b( )
 {
 	RP = RZN;
-	RSOS = D5_state;
+	RSOS = &Lexer::D5_state;
 }
 
 void Lexer::D5( )
 {
-	RSOS = D5_state;
+	RSOS = &Lexer::D5_state;
 }
 
 void Lexer::D5c( )
 {
 	RP *= 10;
 	RP += RZN;
-	RSOS = D5_state;
+	RSOS = &Lexer::D5_state;
 }
 void Lexer::D6()
 {
 	addLexem();
-	RSOS = D6_state;
+	RSOS = &Lexer::D6_state;
 }
 void Lexer::D6a()
 {
 
-	RSOS = D6_state;
+	RSOS = &Lexer::D6_state;
 }
 void Lexer::E1()
 {
-	RSOS = E1_state;
+	RSOS = &Lexer::E1_state;
 }
 void Lexer::E1a()
 {
 	RKL = lexeme_token_class::transfer;
-	RSOS = E1_state;
+	RSOS = &Lexer::E1_state;
 }
 void Lexer::E1b()
 {
 	RKL = lexeme_token_class::transfer_sub;
-	RSOS = E1_state;
+	RSOS = &Lexer::E1_state;
 }
 void Lexer::E2()
 {
-	RSOS = E2_state;
+	RSOS = &Lexer::E2_state;
 }
 void Lexer::E2a()
 {
 	RKL = lexeme_token_class::label;
-	RSOS = E2_state;
+	RSOS = &Lexer::E2_state;
 }
 void Lexer::E2b()
 {
 	RSTR = RZN;
-	RSOS = E2_state;
+	RSOS = &Lexer::E2_state;
 }
 void Lexer::E2c()
 {
 	RSTR *= 10;
 	RSTR += RZN;
-	RSOS = E2_state;
+	RSOS = &Lexer::E2_state;
 }
 void Lexer::F1()
 {
-	RSOS = F1_state;
+	RSOS = &Lexer::F1_state;
 }
 void Lexer::F1a()
 {
 	RKL = lexeme_token_class::assignment;
-	RSOS = F1_state;
+	RSOS = &Lexer::F1_state;
 }
 void Lexer::F1b()
 {
 	RKL = lexeme_token_class::FOR;
-	RSOS = F1_state;
+	RSOS = &Lexer::F1_state;
 }
 void Lexer::F2()
 {
-	RSOS = F2_state;
+	RSOS = &Lexer::F2_state;
 }
 void Lexer::F2a()
 {
 	RU = RZN;
-	RSOS = F2_state;
+	RSOS = &Lexer::F2_state;
 }
 void Lexer::F3()
 {
-	RSOS = F3_state;
+	RSOS = &Lexer::F3_state;
 }
 void Lexer::F3a()
 {
 	RZN = (RZN + 1) * 26;
 	RU += RZN;
-	RSOS = F3_state;
+	RSOS = &Lexer::F3_state;
 }
 void Lexer::G1()
 {
-	RSOS = G1_state;
+	RSOS = &Lexer::G1_state;
 }
 void Lexer::G1a()
 {
 	RKL = lexeme_token_class::REM;
-	RSOS = G1_state;
+	RSOS = &Lexer::G1_state;
 }
 void Lexer::H1()
 {
-	RSOS = H1_state;
+	RSOS = &Lexer::H1_state;
 }
 void Lexer::H1a()
 {
 	ROT = RZN;
-	RSOS = H1_state;
+	RSOS = &Lexer::H1_state;
 }
 void Lexer::H1b()
 {
 	addLexem();
-	RSOS = H1_state;
+	RSOS = &Lexer::H1_state;
 }
 void Lexer::H1c()
 {
 	DA1D();
-	RSOS = H1_state;
+	RSOS = &Lexer::H1_state;
 }
 void Lexer::H1d()
 {
 	DA2D();
 	H1b();
-	RSOS = H1_state;
+	RSOS = &Lexer::H1_state;
 }
 void Lexer::H1e()
 {
 	DA3D();
 	H1b();
-	RSOS = H1_state;
+	RSOS = &Lexer::H1_state;
 }
 void Lexer::H1f()
 {
 	DA1E();
 	H1b();
-	RSOS = H1_state;
+	RSOS = &Lexer::H1_state;
 }
 void Lexer::M1()
 {
