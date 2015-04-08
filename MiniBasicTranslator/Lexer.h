@@ -31,7 +31,9 @@ class Lexer
 	};
 	enum state
 	{
-		A1, A2, A3, B1, C1, C2, D1, D2, D3, D4, D5, D6, E1, E2, F1, F2, F3, G1, H1, ERROR, LAST_STATE
+		A1_state, A2_state, A3_state, B1_state, C1_state, C2_state, D1_state,
+		D2_state, D3_state, D4_state, D5_state, D6_state, E1_state, E2_state,
+		F1_state, F2_state, F3_state, G1_state, H1_state, ERROR_state, LAST_STATE
 	};
 	typedef void(Lexer::*lexer_method)();
 	struct transition_table_element
