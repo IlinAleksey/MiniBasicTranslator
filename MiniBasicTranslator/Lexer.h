@@ -183,6 +183,9 @@ class Lexer
 	void addLexem();
 	void calculateConstant();
 	void transliterator(char c);
+
+	//logging functions
+	void write_log_file();
 public:
 	void start(std::string filename);
 	Lexer();

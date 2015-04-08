@@ -59,8 +59,16 @@ Lexer::Lexer()
 
 	};
 	UTO = new float[500];
+	for (int i = 0; i < 100; i++)
+	{
+		UTO[i] = 0;
+	}
 	NTO = 278;
 	UTL = new lexeme_token[100];
+	for (int i = 0; i < 100; i++)
+	{
+		UTL[i] = lexeme_token{ lexeme_token_class(-1), -1 };
+	}
 	NTL = 0;
 	RSOS = &Lexer::A1_state;
 }
@@ -1502,6 +1510,8 @@ void Lexer::start(std::string filename)
 	{
 		for (std::string::iterator it = line.begin(); it != line.end(); it++)
 		{
+			transliterator(*it);
+			write_log_file();
 			(this->*RSOS)();
 		}
 		RK = transliterator_token_class::newline;
@@ -1586,4 +1596,24 @@ void Lexer::transliterator(char c)
 		RK = transliterator_token_class::error;
 		break;
 	}
+}
+
+void Lexer::write_log_file()
+{
+	std::ofstream log_file("log.txt");
+	log_file << "NTO: "<<NTO<<std::endl;
+	log_file << "NTL: " << NTL << std::endl;
+	log_file << "RCH: " << RCH << std::endl;
+	log_file << "RZ: " << RZ << std::endl;
+	log_file << "RP: " << RP << std::endl;
+	log_file << "RS: " << RS << std::endl;
+	log_file << "RKL: " << RKL << std::endl;
+	log_file << "ROT: " << ROT << std::endl;
+	log_file << "RZN: " << RZN << std::endl;
+	log_file << "ROB: " << ROB << std::endl;
+	log_file << "RK: " << RK << std::endl;
+	log_file << "RSTR: " << RSTR << std::endl;
+	log_file << "RU: " << RU << std::endl;
+	log_file << "---------------------------------------"<< std::endl;
+	log_file.close();
 }
