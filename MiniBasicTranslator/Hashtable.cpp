@@ -78,6 +78,15 @@ int Hashtable::add(int key, int value)
 	}
 
 }
+int Hashtable::find(int key)
+{
+	int pos = hash_function(key);
+	while (pos!= -1 && m_table[pos].label != key)
+	{
+		pos = m_table[pos].alternative;
+	}
+	return pos;
+}
 
 int& Hashtable::operator[](int key)
 {
