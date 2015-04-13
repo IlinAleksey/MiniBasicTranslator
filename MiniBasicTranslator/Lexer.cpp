@@ -3,6 +3,13 @@
 #include <string>
 #include <math.h>
 #include <ctype.h>
+#include <iomanip>
+
+std::vector<std::string> arr_lexemes = { "", "label", "identifier", "arithmetic_operation",
+"relationship_operation", "end_of_loop", "assignment", "FOR", "transfer",
+"transfer_sub", "left_parenthesis", "right_parenthesis", "IF", "RETURN", "END", "TO", "STEP", "REM",
+"ERROR_LEXEME", "END_OF_FILE", "LAST_LEXEME_TOKEN_CLASS" };
+
 Lexer::Lexer()
 {
 	m_init_vector = {
@@ -1230,9 +1237,9 @@ void Lexer::D4a( )
 	switch (RZN)
 	{
 	case 1:
-		RZN = 1;
+		RZ = 1;
 	case 2:
-		RZN = -1;
+		RZ = -1;
 	default:
 		error_method();
 		break;
@@ -1573,8 +1580,9 @@ void Lexer::transliterator(char c)
 		RK = transliterator_token_class::digit;
 		return;
 	}
-	if (c <= 'Z' && c >= 'A')
+	if (isalpha(c))
 	{
+		c = toupper(c);
 		RZN = c - 'A' + 1;
 		RK = transliterator_token_class::letter;
 		return;
@@ -1666,11 +1674,161 @@ std::string Lexer::lexeme_list_str()
 	std::string str;
 	for (int i = 0; i < NTL; i++)
 	{
-		str.append(std::to_string(UTL[i].m_class));
+		str.append(arr_lexemes[(UTL[i].m_class)]);
 		str.push_back(' ');
 		str.append(std::to_string(UTL[i].m_value));
 		str.push_back('\n');
 	}
 	return str;
 
+}
+
+std::string Lexer::get_constants()
+{
+	std::string str;
+	for (int i = 278; i < NTO; i++)
+	{
+		str += std::to_string(UTO[i]) +"\n";
+	}
+	return str;
+}
+
+
+std::string Lexer::format_lexeme(lexeme_token tkn) const
+{
+	std::string str;
+	char digit;
+	char letter;
+	std::vector<std::string> arr_arithmetic{ "", "+", "-", "*", "/", "%" };
+	std::vector<std::string> arr_relationship{ "", "=", "<", ">", "<>", "<=", ">="  };
+	switch (tkn.m_class)
+	{
+	case Lexer::label:
+		return std::to_string(tkn.m_value);
+		break;
+	case Lexer::identifier:
+		if (tkn.m_value < 278)
+		{
+			letter = (tkn.m_value % 26) + 'A' - 1;
+			digit = tkn.m_value / 26 - 1;
+			str.push_back(letter);
+			if (digit >= 0)
+			{
+				str.push_back(digit+'0');
+			}
+			return str;
+		}
+		else
+		{
+			return "cnst";
+		}
+		break;
+	case Lexer::arithmetic_operation:
+		return arr_arithmetic[tkn.m_value];
+		break;
+	case Lexer::relationship_operation:
+		return arr_relationship[tkn.m_value];
+		break;
+	case Lexer::end_of_loop:
+		letter = (tkn.m_value % 26) + 'A' - 1;
+		digit = tkn.m_value / 26 - 1;
+		str.push_back(letter);
+		if (digit >= 0)
+		{
+			str.push_back(digit + '0');
+		}
+		return str;
+		break;
+	case Lexer::assignment:
+		letter = (tkn.m_value % 26) + 'A' - 1;
+		digit = tkn.m_value / 26 - 1;
+		str.push_back(letter);
+		if (digit >= 0)
+		{
+			str.push_back(digit + '0');
+		}
+		return str;
+		break;
+	case Lexer::FOR:
+		letter = (tkn.m_value % 26) + 'A' - 1;
+		digit = tkn.m_value / 26 - 1;
+		str.push_back(letter);
+		if (digit >= 0)
+		{
+			str.push_back(digit + '0');
+		}
+		return str;
+		break;
+	case Lexer::transfer:
+		return std::to_string(tkn.m_value);
+		break;
+	case Lexer::transfer_sub:
+		return std::to_string(tkn.m_value);
+		break;
+	case Lexer::left_parenthesis:
+		return "";
+		break;
+	case Lexer::right_parenthesis:
+		return "";
+		break;
+	case Lexer::IF:
+		return "";
+		break;
+	case Lexer::RETURN:
+		return "";
+		break;
+	case Lexer::END:
+		return "";
+		break;
+	case Lexer::TO:
+		return "";
+		break;
+	case Lexer::STEP:
+		return "";
+		break;
+	case Lexer::REM:
+		return "";
+		break;
+	case Lexer::ERROR_LEXEME:
+		return "";
+		break;
+	case Lexer::END_OF_FILE:
+		return "";
+		break;
+	case Lexer::LAST_LEXEME_TOKEN_CLASS:
+		return "";
+		break;
+	default:
+		break;
+	}
+}
+
+
+std::ostream& operator<<(std::ostream& out, const Lexer& lexer)
+{
+	out << "Lexeme list:" << std::endl;
+	for (int i = 0; i < 25; i++)
+	{
+		out << '_';
+	}
+	out << std::endl;
+	for (int i = 0; i < lexer.NTL; i++)
+	{
+			out << '|';
+			out << std::setw(5) << i;
+			out << '|';
+			out << std::setw(25) << arr_lexemes[lexer.UTL[i].m_class];
+			out << '|';
+			out << std::setw(15) << lexer.format_lexeme(lexer.UTL[i]);
+			out << '|';
+			out << std::endl;
+	}
+	out << "Constants list:" << std::endl;
+	for (int i = 278; i < lexer.NTO; i++)
+	{
+		out<< lexer.UTO[i] << std::endl;
+	}
+	out << "Labels list:" << std::endl;
+	out << lexer.UTS;
+	return out;
 }

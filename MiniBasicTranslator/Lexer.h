@@ -188,9 +188,13 @@ class Lexer
 	//logging functions
 	void write_log_file();
 	std::string log_message;
+	std::string lexeme_list_str();
+	std::string get_constants();
+	std::string format_lexeme(lexeme_token tkn) const;
+
 public:
 	void start(std::string filename);
-	std::string lexeme_list_str();
+	friend std::ostream& operator<<(std::ostream& out, const Lexer& lexer);
 	Lexer();
 	~Lexer();
 };

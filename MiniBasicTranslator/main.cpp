@@ -5,6 +5,6 @@ int main()
 {
 	Lexer lxr;
 	lxr.start("data.txt");
-	std::cout << lxr.lexeme_list_str();
+	std::cout << lxr;
 	return 0;
 }
