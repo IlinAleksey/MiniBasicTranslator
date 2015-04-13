@@ -7,8 +7,9 @@ class Lexer
 	
 	enum lexeme_token_class
 	{
-		label=1, identifier, arithmetic_operation, relationship_operation, end_of_loop, assignment,FOR, transfer, transfer_sub, 
-		left_parenthesis, right_parenthesis, IF, RETURN, END, TO, STEP, REM, ERROR_LEXEME, END_OF_FILE, LAST_LEXEME_TOKEN_CLASS
+		label=1, identifier, arithmetic_operation, relationship_operation, end_of_loop,
+		assignment,FOR, transfer, transfer_sub,	left_parenthesis,right_parenthesis,
+		IF, RETURN, END, TO, STEP, REM, ERROR_LEXEME, END_OF_FILE, LAST_LEXEME_TOKEN_CLASS
 	};
 	struct lexeme_token
 	{
@@ -189,6 +190,7 @@ class Lexer
 	std::string log_message;
 public:
 	void start(std::string filename);
+	std::string lexeme_list_str();
 	Lexer();
 	~Lexer();
 };

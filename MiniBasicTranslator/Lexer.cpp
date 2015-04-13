@@ -844,6 +844,7 @@ void Lexer::error_state()
 void Lexer::A1b( )
 {
 	DA1D( );
+	addLexem();
 	RSOS = &Lexer::A1_state;
 }
 
@@ -887,6 +888,8 @@ void Lexer::A2c( )
 
 void Lexer::A2g( )
 {
+	addLexem();
+	RKL = arithmetic_operation;
 	addLexem();
 	RSOS = &Lexer::A2_state;
 }
@@ -1114,6 +1117,8 @@ void Lexer::B1a()
 void Lexer::B1b()
 {
 	addLexem();
+	ROB = m_init_vector[RZN - 1];
+	if (ROB == 0) error_method();
 	RSOS = &Lexer::B1_state;
 }
 void Lexer::B1c()
@@ -1130,7 +1135,6 @@ void Lexer::B1e()
 {
 	DA1E();
 	B1b();
-	B1a();
 	RSOS = &Lexer::B1_state;
 }
 void Lexer::C1()
@@ -1149,11 +1153,14 @@ void Lexer::Ñ1b()
 void Lexer::C2a()
 {
 	RKL = identifier;
+	RU = RZN;
 	RSOS = &Lexer::C2_state;
 }
 void Lexer::C2b()
 {
 	addLexem();
+	RKL = identifier;
+	RU = RZN;
 	RSOS = &Lexer::C2_state;
 }
 void Lexer::C2d()
@@ -1390,13 +1397,17 @@ void Lexer::H1f()
 }
 void Lexer::M1()
 {
-	if (m_transition_table[ROB].symbol - 'A' +1 == RZN)
+	while (ROB != 0)
 	{
-		(this->*m_transition_table[ROB].method)();
-	}
-	else
-	{
-		ROB = m_transition_table[ROB].alternative;
+		if (m_transition_table[ROB].symbol - 'A' + 1 == RZN)
+		{
+			(this->*m_transition_table[ROB].method)();
+			break;
+		}
+		else
+		{
+			ROB = m_transition_table[ROB].alternative;
+		}
 	}
 	if (ROB == 0)
 	{
@@ -1551,7 +1562,7 @@ void  Lexer::calculateConstant()
 	RU = NTO;
 	UTO[NTO] = RCH * pow(10, RP);
 	NTO++;
-	addLexem();
+	//addLexem();
 }
 
 void Lexer::transliterator(char c)
@@ -1648,4 +1659,18 @@ void Lexer::write_log_file()
 	log_file << "---------------------------------------"<< std::endl;
 	log_file.close();
 	log_message = "";
+}
+
+std::string Lexer::lexeme_list_str()
+{
+	std::string str;
+	for (int i = 0; i < NTL; i++)
+	{
+		str.append(std::to_string(UTL[i].m_class));
+		str.push_back(' ');
+		str.append(std::to_string(UTL[i].m_value));
+		str.push_back('\n');
+	}
+	return str;
+
 }
