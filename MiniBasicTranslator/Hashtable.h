@@ -3,6 +3,7 @@
 
 class Hashtable
 {
+protected:
 	struct row
 	{
 		int label;
@@ -16,7 +17,7 @@ class Hashtable
 	int m_capacity;
 	row* m_table;
 	int m_free_row;
-	int next_free();
+	virtual int next_free();
 	int hash_function(int key) const;
 	bool is_row_null(int row) const;
 public:

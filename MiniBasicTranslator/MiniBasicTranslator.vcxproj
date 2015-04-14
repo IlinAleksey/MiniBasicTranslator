@@ -77,11 +77,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Hashtable.cpp" />
+    <ClCompile Include="HashtableDel.cpp" />
     <ClCompile Include="Lexer.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hashtable.h" />
+    <ClInclude Include="HashtableDel.h" />
     <ClInclude Include="Lexer.h" />
   </ItemGroup>
   <ItemGroup>
