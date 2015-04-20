@@ -904,6 +904,7 @@ void Lexer::A2g( )
 void Lexer::A2a( )
 {
 	RKL = arithmetic_operation;
+	addLexem();
 	RSOS = &Lexer::A2_state;
 }
 
@@ -1073,7 +1074,7 @@ void Lexer::A3()
 void Lexer::A3a()
 {
 	RZN = (RZN + 1) * 26;
-	RZN += RU;
+	RU += RZN;
 	addLexem();
 	RSOS = &Lexer::A3_state;
 }
@@ -1085,6 +1086,8 @@ void Lexer::A3b()
 }
 void Lexer::A3c()
 {
+	addLexem();
+	RKL = right_parenthesis;
 	addLexem();
 	RSOS = &Lexer::A3_state;
 }
