@@ -33,7 +33,7 @@ class Lexer
 	{
 		label=1, identifier, arithmetic_operation, relationship_operation, end_of_loop,
 		assignment,FOR, transfer, transfer_sub,	left_parenthesis,right_parenthesis,
-		IF, RETURN, END, TO, STEP, REM, ERROR_LEXEME, END_OF_FILE, LAST_LEXEME_TOKEN_CLASS
+		IF, RETURN, END, TO, STEP, REM, WHILE, ENDW, ERROR_LEXEME, END_OF_FILE, LAST_LEXEME_TOKEN_CLASS
 	};
 	struct lexeme_token
 	{
@@ -132,6 +132,7 @@ class Lexer
 	void A2s( );
 	void A2t( );
 	void A2u( );
+	void A2v();
 	void A3( );
 	void A3a( );
 	void A3b( );
@@ -197,6 +198,8 @@ class Lexer
 	void M1( );
 	void M2( );
 	void M3( );
+	void W1();
+	void W1a();
 	void EXIT1( );
 	void EXIT2( );
 	void EXIT3( );

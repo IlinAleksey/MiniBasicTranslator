@@ -5,9 +5,9 @@
 #include <ctype.h>
 #include <iomanip>
 
-std::vector<std::string> arr_lexemes = { "", "label", "identifier", "arithmetic_operation",
-"relationship_operation", "NEXT", "LET", "FOR", "GOTO",
-"GOSUB", "left_parenthesis", "right_parenthesis", "IF", "RETURN", "END", "TO", "STEP", "REM",
+std::vector<std::string> arr_lexemes = { "", "LABEL", "ID", "ARITHMETIC",
+"RELATIONSHIP", "NEXT", "LET", "FOR", "GOTO",
+"GOSUB", "(", ")", "IF", "RETURN", "END", "TO", "STEP", "REM", "WHILE", "ENDW",
 "ERROR_LEXEME", "END_OF_FILE", "LAST_LEXEME_TOKEN_CLASS" };
 
 Lexer::Lexer()
@@ -37,7 +37,7 @@ Lexer::Lexer()
 	m_transition_table = {
 		{},
 		{ 'N', 0, &Lexer::B1d },
-		{ 'D', 0, &Lexer::A2q },
+		{ 'D', 0, &Lexer::W1a },
 		{ 'O', 0, &Lexer::B1d },
 		{ 'R', 0, &Lexer::F1b },
 		{ 'O', 0, &Lexer::B1d },
@@ -61,7 +61,11 @@ Lexer::Lexer()
 		{ 'T', 0, &Lexer::B1d },
 		{ 'E', 0, &Lexer::B1d },
 		{ 'P', 0, &Lexer::A2t },
-		{ 'O', 0, &Lexer::A2u }
+		{ 'O', 0, &Lexer::A2u },
+		{ 'H', 0, &Lexer::B1d },
+		{ 'I', 0, &Lexer::B1d },
+		{ 'L', 0, &Lexer::B1d },
+		{ 'E', 0, &Lexer::A2v }
 		
 
 	};
@@ -866,7 +870,68 @@ void Lexer::error_state()
 	}
 }
 
-
+void Lexer::W1()
+{
+	switch (RK)
+	{
+	case Lexer::letter:
+		if (RZN == 23)
+		{
+			RKL = ENDW;
+			A2b();
+			RSOS = &Lexer::A2;
+		}
+		else
+		{
+			A2q();
+			C2a();
+		}
+		break;
+	case Lexer::digit:
+		A2q();
+		D1a();
+		break;
+	case Lexer::arithmetic:
+		A2q();
+		A2a();
+		break;
+	case Lexer::relationship:
+		A2q();
+		H1a();
+		break;
+	case Lexer::left_par:
+		A2q();
+		A2h();
+		break;
+	case Lexer::right_par:
+		A2q();
+		A3b();
+		break;
+	case Lexer::dot:
+		A2q();
+		RSOS = &Lexer::D6;
+		break;
+	case Lexer::CR:
+		A2q();
+		RSOS = &Lexer::A2;
+		break;
+	case Lexer::newline:
+		A2q();
+		RSOS = &Lexer::A1;
+		break;
+	case Lexer::eof:
+		A2q();
+		EXIT1();
+		break;
+	case Lexer::error:
+		error_method("error");
+		break;
+	case Lexer::last_transliterator_token_class:
+		break;
+	default:
+		break;
+	}
+}
 
 void Lexer::A1b( )
 {
@@ -1077,6 +1142,12 @@ void Lexer::A2u( )
 	A2b();
 	RSOS = &Lexer::A2;
 }
+void Lexer::A2v()
+{
+	RKL = lexeme_token_class::WHILE;
+	A2b();
+	RSOS = &Lexer::A2;
+}
 void Lexer::A3a()
 {
 	RZN = (RZN + 1) * 26;
@@ -1195,6 +1266,7 @@ void Lexer::D1b()
 void Lexer::D1c()
 {
 	addLexem();
+	D1a();
 	RSOS = &Lexer::D1;
 }
 
@@ -1402,6 +1474,10 @@ void Lexer::M3()
 		D3();
 	}
 }
+void Lexer::W1a()
+{
+	RSOS = &Lexer::W1;
+}
 void Lexer::EXIT1()
 {
 	//"¬€’Œƒ1:    «‡„ÛÁËÚ¸  ŒÕ≈÷ Ã¿– ≈– ‚ –≈√»—“–  À¿——¿" ◊ÚÓ Ú‡ÍÓÂ  ŒÕ≈÷ Ã¿– ≈–?
@@ -1440,14 +1516,22 @@ void Lexer::DA1E()
 {
 	int pos = UTS.find(RSTR);
 	std::cout << UTS << std::endl;
-	if (pos != -1)
-	{
-		RU = pos;
-	}
-	else
+	if (RKL == lexeme_token_class::label)
 	{
 		RU = UTS.add(RSTR, NTL);
 	}
+	else
+	{
+		if (pos != -1)
+		{
+			RU = pos;
+		}
+		else
+		{
+			RU = UTS.add(RSTR, -1);
+		}
+	}
+	
 }
 void Lexer::DA2D()
 {
@@ -1538,7 +1622,7 @@ void  Lexer::calculateConstant()
 	//addLexem();
 }
 
-int init_vector(char c)
+int Lexer::init_vector(char c)
 {
 	//m_init_vector = {
 	//	0, //a
@@ -1562,6 +1646,7 @@ int init_vector(char c)
 	//	26, //t
 	//	0, 0, 0, 0, 0, 0
 	//};
+	c = c + 'a';
 	switch (c)
 	{
 	case 'e':
@@ -1584,7 +1669,7 @@ int init_vector(char c)
 	case 't':
 		return 26;
 	case 'w':
-		return 100;
+		return 27;
 	default:
 		return 0;
 		break;
@@ -1719,7 +1804,7 @@ std::string Lexer::format_lexeme(lexeme_token tkn) const
 	char digit;
 	char letter;
 	std::vector<std::string> arr_arithmetic{ "", "+", "-", "*", "/", "%" };
-	std::vector<std::string> arr_relationship{ "", "=", "<", ">", "<>", "<=", ">="  };
+	std::vector<std::string> arr_relationship{ "=", "<", ">", "<>", "<=", ">="  };
 	switch (tkn.m_class)
 	{
 	case Lexer::label:
@@ -1806,6 +1891,12 @@ std::string Lexer::format_lexeme(lexeme_token tkn) const
 		return "";
 		break;
 	case Lexer::REM:
+		return "";
+		break;
+	case Lexer::WHILE:
+		return "";
+		break;
+	case Lexer::ENDW:
 		return "";
 		break;
 	case Lexer::ERROR_LEXEME:

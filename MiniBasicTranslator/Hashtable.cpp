@@ -73,6 +73,7 @@ int Hashtable::add(int key, int value)
 		}
 		else
 		{
+			m_table[cur].value = value;
 			return cur;
 		}
 	}
