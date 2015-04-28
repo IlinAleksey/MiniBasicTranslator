@@ -2,6 +2,30 @@
 #include "Hashtable.h"
 #include <iostream>
 #include <vector>
+#include <string>
+
+
+class LexerError
+{
+	std::string message;
+	int row;
+	int column;
+
+public:
+	LexerError(){}
+	LexerError(std::string message, int row, int column) : message(message), row(row), column(column){}
+	friend std::ostream& operator<<(std::ostream& out, const LexerError& lexer_error)
+	{
+		out << lexer_error.row << ", " << lexer_error.column << ": " << lexer_error.message;
+		return out;
+	}
+	~LexerError(){}
+
+private:
+
+};
+
+
 class Lexer
 {
 	
@@ -54,6 +78,10 @@ class Lexer
 	int RSTR; //регистр строки
 	int RU; //Регистр указателя
 
+	int ROW;
+	int COL;
+
+	std::vector<LexerError> error_list;
 
 	void A1_state();
 	void A2_state();
@@ -180,17 +208,20 @@ class Lexer
 	void DA2D( );
 	void DA3D( );
 	void DA1LOOP( );
-	void error_method();
+	void error_method(std::string message);
 	void addLexem();
 	void calculateConstant();
+	int init_vector(char c);
 	void transliterator(char c);
-
+	void add_error(std::string message);
+	
 	//logging functions
 	void write_log_file();
 	std::string log_message;
 	std::string lexeme_list_str();
 	std::string get_constants();
 	std::string format_lexeme(lexeme_token tkn) const;
+	void print_errors() const;
 
 public:
 	void start(std::string filename);
