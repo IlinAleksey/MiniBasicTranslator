@@ -106,25 +106,25 @@ void Lexer::A1()
 	switch (RK)
 	{
 	case Lexer::letter:
-		error_method("error1");
+		error_method("Label is expected");
 		break;
 	case Lexer::digit:
 		E2a();
 		break;
 	case Lexer::arithmetic:
-		error_method("error2");
+		error_method("Label is expected");
 		break;
 	case Lexer::relationship:
-		error_method("error3");
+		error_method("Label is expected");
 		break;
 	case Lexer::left_par:
-		error_method("error4");
+		error_method("Label is expected");
 		break;
 	case Lexer::right_par:
-		error_method("error5");
+		error_method("Label is expected");
 		break;
 	case Lexer::dot:
-		error_method("error6");
+		error_method("Label is expected");
 		break;
 	case Lexer::CR:
 		break;
@@ -134,12 +134,13 @@ void Lexer::A1()
 		EXIT1();
 		break;
 	case Lexer::error:
-		error_method("error7");
+		error_method("Invalid character");
 		break;
 	case Lexer::last_transliterator_token_class:
-		error_method("error7");
+		error_method("Something went very wrong");
 		break;
 	default:
+		error_method("Something went very wrong");
 		break;
 	}
 }
@@ -178,7 +179,7 @@ void Lexer::A2()
 		EXIT1();
 		break;
 	case Lexer::error:
-		error_method("error");
+		error_method("Invalid character");
 		break;
 	case Lexer::last_transliterator_token_class:
 		break;
@@ -236,37 +237,37 @@ void Lexer::B1()
 		M1();
 		break;
 	case Lexer::digit:
-		error_method("errorB1 1");
+		error_method("Not a keyword");
 		break;
 	case Lexer::arithmetic:
-		error_method("errorB1 2");
+		error_method("Not a keyword");
 		break;
 	case Lexer::relationship:
-		error_method("errorB1 3");
+		error_method("Not a keyword");
 		break;
 	case Lexer::left_par:
-		error_method("errorB1 4");
+		error_method("Not a keyword");
 		break;
 	case Lexer::right_par:
-		error_method("errorB1 5");
+		error_method("Not a keyword");
 		break;
 	case Lexer::dot:
-		error_method("errorB1 6");
+		error_method("Not a keyword");
 		break;
 	case Lexer::CR:
 		RSOS = &Lexer::B1;
 		break;
 	case Lexer::newline:
-		error_method("errorB1 8");
+		error_method("Not a keyword");
 		break;
 	case Lexer::eof:
-		error_method("errorB1 9");
+		error_method("Not a keyword");
 		break;
 	case Lexer::error:
-		error_method("errorB1 10");
+		error_method("Invalid character");
 		break;
 	case Lexer::last_transliterator_token_class:
-		error_method("error");
+		error_method("Not a keyword");
 		break;
 	default:
 		break;
@@ -280,28 +281,37 @@ void Lexer::C1()
 		C2d();
 		break;
 	case Lexer::digit:
+		error_method("Unexpected character in variable");
 		break;
 	case Lexer::arithmetic:
+		error_method("Unexpected character in variable");
 		break;
 	case Lexer::relationship:
+		error_method("Unexpected character in variable");
 		break;
 	case Lexer::left_par:
+		error_method("Unexpected character in variable");
 		break;
 	case Lexer::right_par:
+		error_method("Unexpected character in variable");
 		break;
 	case Lexer::dot:
+		error_method("Unexpected character in variable");
 		break;
 	case Lexer::CR:
 		RSOS = &Lexer::C1;
 		break;
 	case Lexer::newline:
+		error_method("Variable is expected");
 		break;
 	case Lexer::eof:
 		EXIT3();
 		break;
 	case Lexer::error:
+		error_method("Invalid character");
 		break;
 	case Lexer::last_transliterator_token_class:
+		error_method("Not a variable");
 		break;
 	default:
 		break;
@@ -330,6 +340,7 @@ void Lexer::C2()
 		A3c();
 		break;
 	case Lexer::dot:
+		error_method("Unexpected character: dot cannot go after variable");
 		break;
 	case Lexer::CR:
 		RSOS = &Lexer::C2;
@@ -341,6 +352,7 @@ void Lexer::C2()
 		EXIT4();
 		break;
 	case Lexer::error:
+		error_method("Invalid character");
 		break;
 	case Lexer::last_transliterator_token_class:
 		break;
@@ -413,6 +425,7 @@ void Lexer::D2()
 		A3e();
 		break;
 	case Lexer::dot:
+		error_method("Unexpected character: real number cannot have two dots");
 		break;
 	case Lexer::CR:
 		RSOS = &Lexer::D2;
@@ -436,6 +449,7 @@ void Lexer::D3()
 	switch (RK)
 	{
 	case Lexer::letter:
+		error_method("Unexpected character: exponent cannot contain a letter");
 		break;
 	case Lexer::digit:
 		D5a();
@@ -444,21 +458,28 @@ void Lexer::D3()
 		D4a();
 		break;
 	case Lexer::relationship:
+		error_method("Unexpected character: exponent cannot contain a relationship");
 		break;
 	case Lexer::left_par:
+		error_method("Unexpected character: exponent cannot contain parentheses");
 		break;
 	case Lexer::right_par:
+		error_method("Unexpected character: exponent cannot contain parentheses");
 		break;
 	case Lexer::dot:
+		error_method("Unexpected character: exponent cannot contain dots");
 		break;
 	case Lexer::CR:
 		RSOS = &Lexer::D3;
 		break;
 	case Lexer::newline:
+		error_method("Invalid exponent");
 		break;
 	case Lexer::eof:
+		error_method("Invalid exponent");
 		break;
 	case Lexer::error:
+		error_method("Invalid character");
 		break;
 	case Lexer::last_transliterator_token_class:
 		break;
@@ -471,28 +492,37 @@ void Lexer::D4()
 	switch (RK)
 	{
 	case Lexer::letter:
+		error_method("Unexpected character: exponent cannot contain a letter");
 		break;
 	case Lexer::digit:
 		D5b();
 		break;
 	case Lexer::arithmetic:
+		error_method("Unexpected character: exponent cannot contain two operation symbols");
 		break;
 	case Lexer::relationship:
+		error_method("Unexpected character: exponent cannot contain a relationship");
 		break;
 	case Lexer::left_par:
+		error_method("Unexpected character: exponent cannot contain parentheses");
 		break;
 	case Lexer::right_par:
+		error_method("Unexpected character: exponent cannot contain parentheses");
 		break;
 	case Lexer::dot:
+		error_method("Unexpected character: exponent cannot contain dots");
 		break;
 	case Lexer::CR:
 		RSOS = &Lexer::D4;
 		break;
 	case Lexer::newline:
+		error_method("Invalid exponent");
 		break;
 	case Lexer::eof:
+		error_method("Invalid exponent");
 		break;
 	case Lexer::error:
+		error_method("Invalid character");
 		break;
 	case Lexer::last_transliterator_token_class:
 		break;
@@ -523,6 +553,7 @@ void Lexer::D5()
 		A3f();
 		break;
 	case Lexer::dot:
+		error_method("Unexpected character: exponent cannot contain dots");
 		break;
 	case Lexer::CR:
 		RSOS = &Lexer::D5;
@@ -534,6 +565,7 @@ void Lexer::D5()
 		EXIT5();
 		break;
 	case Lexer::error:
+		error_method("Invalid character");
 		break;
 	case Lexer::last_transliterator_token_class:
 		break;
@@ -546,28 +578,37 @@ void Lexer::D6()
 	switch (RK)
 	{
 	case Lexer::letter:
+		error_method("Unexpected character: letter cannot go after dot");
 		break;
 	case Lexer::digit:
 		D2b();
 		break;
 	case Lexer::arithmetic:
+		error_method("Unexpected character: arithmetic operation cannot go after dot");
 		break;
 	case Lexer::relationship:
+		error_method("Unexpected character: relationship operation cannot go after dot");
 		break;
 	case Lexer::left_par:
+		error_method("Unexpected character: parenthesis cannot go after dot");
 		break;
 	case Lexer::right_par:
+		error_method("Unexpected character: parenthesis cannot go after dot");
 		break;
 	case Lexer::dot:
+		error_method("Unexpected character: dot cannot go after dot");
 		break;
 	case Lexer::CR:
 		RSOS = &Lexer::D6;
 		break;
 	case Lexer::newline:
+		error_method("Invalid constant");
 		break;
 	case Lexer::eof:
+		error_method("Invalid constant");
 		break;
 	case Lexer::error:
+		error_method("Invalid character");
 		break;
 	case Lexer::last_transliterator_token_class:
 		break;
@@ -580,28 +621,37 @@ void Lexer::E1()
 	switch (RK)
 	{
 	case Lexer::letter:
+		error_method("Unexpected character in label");
 		break;
 	case Lexer::digit:
 		E2b();
 		break;
 	case Lexer::arithmetic:
+		error_method("Unexpected character in label");
 		break;
 	case Lexer::relationship:
+		error_method("Unexpected character in label");
 		break;
 	case Lexer::left_par:
+		error_method("Unexpected character in label");
 		break;
 	case Lexer::right_par:
+		error_method("Unexpected character in label");
 		break;
 	case Lexer::dot:
+		error_method("Unexpected character in label");
 		break;
 	case Lexer::CR:
 		RSOS = &Lexer::E1;
 		break;
 	case Lexer::newline:
+		error_method("Unexpected character in label");
 		break;
 	case Lexer::eof:
+		error_method("Unexpected character in label");
 		break;
 	case Lexer::error:
+		error_method("Unexpected character in label");
 		break;
 	case Lexer::last_transliterator_token_class:
 		break;
@@ -632,6 +682,7 @@ void Lexer::E2()
 		A3g();
 		break;
 	case Lexer::dot:
+		error_method("Unexpected character in label");
 		break;
 	case Lexer::CR:
 		RSOS = &Lexer::E2;
@@ -640,8 +691,10 @@ void Lexer::E2()
 		A1e();
 		break;
 	case Lexer::eof:
+		error_method("Unexpected character in label");
 		break;
 	case Lexer::error:
+		error_method("Unexpected character in label");
 		break;
 	case Lexer::last_transliterator_token_class:
 		break;
@@ -657,25 +710,34 @@ void Lexer::F1()
 		F2a();
 		break;
 	case Lexer::digit:
+		error_method("Unexpected character in variable");
 		break;
 	case Lexer::arithmetic:
+		error_method("Unexpected character in variable");
 		break;
 	case Lexer::relationship:
+		error_method("Unexpected character in variable");
 		break;
 	case Lexer::left_par:
+		error_method("Unexpected character in variable");
 		break;
 	case Lexer::right_par:
+		error_method("Unexpected character in variable");
 		break;
 	case Lexer::dot:
+		error_method("Unexpected character in variable");
 		break;
 	case Lexer::CR:
 		RSOS = &Lexer::F1;
 		break;
 	case Lexer::newline:
+		error_method("Unexpected character in variable");
 		break;
 	case Lexer::eof:
+		error_method("Unexpected character in variable");
 		break;
 	case Lexer::error:
+		error_method("Unexpected character in variable");
 		break;
 	case Lexer::last_transliterator_token_class:
 		break;
@@ -688,29 +750,37 @@ void Lexer::F2()
 	switch (RK)
 	{
 	case Lexer::letter:
+		error_method("Unexpected character in variable");
 		break;
 	case Lexer::digit:
 		F3a();
 		break;
 	case Lexer::arithmetic:
+		error_method("Unexpected character in variable");
 		break;
 	case Lexer::relationship:
 		A2o();
 		break;
 	case Lexer::left_par:
+		error_method("Unexpected character in variable");
 		break;
 	case Lexer::right_par:
+		error_method("Unexpected character in variable");
 		break;
 	case Lexer::dot:
+		error_method("Unexpected character in variable");
 		break;
 	case Lexer::CR:
 		RSOS = &Lexer::F2;
 		break;
 	case Lexer::newline:
+		error_method("Unexpected character in variable");
 		break;
 	case Lexer::eof:
+		error_method("Unexpected character in variable");
 		break;
 	case Lexer::error:
+		error_method("Unexpected character in variable");
 		break;
 	case Lexer::last_transliterator_token_class:
 		break;
@@ -723,28 +793,37 @@ void Lexer::F3()
 	switch (RK)
 	{
 	case Lexer::letter:
+		error_method("Unexpected character: expected =");
 		break;
 	case Lexer::digit:
+		error_method("Unexpected character: expected =");
 		break;
 	case Lexer::arithmetic:
+		error_method("Unexpected character: expected =");
 		break;
 	case Lexer::relationship:
 		A2o();
 		break;
 	case Lexer::left_par:
+		error_method("Unexpected character: expected =");
 		break;
 	case Lexer::right_par:
+		error_method("Unexpected character: expected =");
 		break;
 	case Lexer::dot:
+		error_method("Unexpected character: expected =");
 		break;
 	case Lexer::CR:
 		RSOS = &Lexer::F3;
 		break;
 	case Lexer::newline:
+		error_method("Unexpected character: expected =");
 		break;
 	case Lexer::eof:
+		error_method("Unexpected character: expected =");
 		break;
 	case Lexer::error:
+		error_method("Unexpected character: expected =");
 		break;
 	case Lexer::last_transliterator_token_class:
 		break;
@@ -924,7 +1003,7 @@ void Lexer::W1()
 		EXIT1();
 		break;
 	case Lexer::error:
-		error_method("error");
+		error_method("Invalid character");
 		break;
 	case Lexer::last_transliterator_token_class:
 		break;
@@ -1056,7 +1135,7 @@ void Lexer::A2o( )
 {
 	if (RZN != 1)
 	{
-		error_method("error A2o meth");
+		error_method("Unexpected character: expected =");
 	}
 	else
 	{
@@ -1102,7 +1181,7 @@ void Lexer::A2p( )
 	}
 	if (new_relationship == -1)
 	{
-		error_method("error");
+		error_method("Invalid relationship operation");
 	}
 	ROT = new_relationship;
 	RSOS = &Lexer::A2;
@@ -1195,15 +1274,19 @@ void Lexer::A3g()
 void Lexer::B1a()
 {
 	ROB = init_vector(RZN - 1);
-	if (ROB == 0) error_method("errorB1a func");   //Не уверен в необходимости ветки ELSE
-	RSOS = &Lexer::B1;
+	if (ROB == 0)
+		error_method("Invalid keyword");
+	else
+		RSOS = &Lexer::B1;
 }
 void Lexer::B1b()
 {
 	addLexem();
 	ROB = init_vector(RZN - 1);
-	if (ROB == 0) error_method("error B1b func");
-	RSOS = &Lexer::B1;
+	if (ROB == 0)
+		error_method("Invalid keyword");
+	else
+		RSOS = &Lexer::B1;
 }
 void Lexer::B1c()
 {
@@ -1304,7 +1387,7 @@ void Lexer::D4a( )
 	case 2:
 		RZ = -1;
 	default:
-		error_method("error D4a func");
+		error_method("Unexpected character: not + or -");
 		break;
 	}
 	RSOS = &Lexer::D4;
@@ -1447,7 +1530,7 @@ void Lexer::M1()
 	}
 	if (ROB == 0)
 	{
-		error_method("error");
+		error_method("Invalid keyword");
 	}
 }
 void Lexer::M2()
@@ -1515,7 +1598,6 @@ void Lexer::DA1D()
 void Lexer::DA1E()
 {
 	int pos = UTS.find(RSTR);
-	std::cout << UTS << std::endl;
 	if (RKL == lexeme_token_class::label)
 	{
 		RU = UTS.add(RSTR, NTL);
@@ -1594,25 +1676,26 @@ void Lexer::start(std::string filename)
 		for (std::string::iterator it = line.begin(); it != line.end(); it++)
 		{
 			transliterator(*it);
-			write_log_file();
 			(this->*RSOS)();
 			COL++;
 		}
 		RK = transliterator_token_class::newline;
-		write_log_file();
 		(this->*RSOS)();
 		COL = 1;
 		ROW++;
 	}
 	RK = transliterator_token_class::eof;
-	write_log_file();
 	(this->*RSOS)();
 
 	if (!error_list.empty())
 	{
 		print_errors();
 	}
-	write_log_file();
+	else
+	{
+		std::cout << "Done" << std::endl;
+	}
+	write_tables();
 }
 void  Lexer::calculateConstant()
 {
@@ -1771,6 +1854,42 @@ void Lexer::write_log_file()
 	log_file << "---------------------------------------"<< std::endl;
 	log_file.close();
 	log_message = "";
+}
+
+void Lexer::write_tables() const
+{
+	std::ofstream lexemes_file("_lexemes.txt");
+	lexemes_file << "Lexeme list:" << std::endl;
+	for (int i = 0; i < 25; i++)
+	{
+		lexemes_file << '_';
+	}
+	lexemes_file << std::endl;
+	for (int i = 0; i < NTL; i++)
+	{
+		lexemes_file << '|';
+		lexemes_file << std::setw(5) << i;
+		lexemes_file << '|';
+		lexemes_file << std::setw(25) << arr_lexemes[UTL[i].m_class];
+		lexemes_file << '|';
+		lexemes_file << std::setw(15) << format_lexeme(UTL[i]);
+		lexemes_file << '|';
+		lexemes_file << std::endl;
+	}
+	lexemes_file.close();
+
+	std::ofstream constants_file("_constants.txt");
+	constants_file << "Constants list:" << std::endl;
+	for (int i = 278; i < NTO; i++)
+	{
+		constants_file << UTO[i] << std::endl;
+	}
+	constants_file.close();
+
+	std::ofstream labels_file("_labels.txt");
+	labels_file << "Labels list:" << std::endl;
+	labels_file << UTS;
+
 }
 
 std::string Lexer::lexeme_list_str()

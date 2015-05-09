@@ -220,6 +220,7 @@ class Lexer
 	
 	//logging functions
 	void write_log_file();
+	void write_tables() const;
 	std::string log_message;
 	std::string lexeme_list_str();
 	std::string get_constants();
