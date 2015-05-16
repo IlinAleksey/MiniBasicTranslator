@@ -57,7 +57,7 @@ class Lexer
 
 	enum relation
 	{ 
-		equal, less, more, notequal, lessorequal, moreorequal 
+		equal=1, less, more, notequal, lessorequal, moreorequal 
 	};
 	
 	Hashtable UTS;

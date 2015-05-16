@@ -75,7 +75,7 @@ Lexer::Lexer()
 		UTO[i] = 0;
 	}
 	NTO = 278;
-	UTL = new lexeme_token[100];
+	UTL = new lexeme_token[500];
 	for (int i = 0; i < 100; i++)
 	{
 		UTL[i] = lexeme_token{ lexeme_token_class(-1), -1 };
@@ -899,7 +899,7 @@ void Lexer::H1()
 		D6a();
 		break;
 	case Lexer::CR:
-		H1a();
+		RSOS = &Lexer::H1;
 		break;
 	case Lexer::newline:
 		A1a();
@@ -1049,6 +1049,9 @@ void Lexer::A1e( )
 void Lexer::A2c( )
 {
 	DA1D( );
+	addLexem();
+	RKL = arithmetic_operation;
+	addLexem();
 	RSOS = &Lexer::A2;
 }
 
@@ -1156,6 +1159,7 @@ void Lexer::A2p( )
 			break;
 		case more:
 			new_relationship = notequal;
+			break;
 		default:
 			new_relationship = -1;
 			break;
@@ -1184,6 +1188,7 @@ void Lexer::A2p( )
 		error_method("Invalid relationship operation");
 	}
 	ROT = new_relationship;
+	A2b();
 	RSOS = &Lexer::A2;
 }
 
@@ -1250,6 +1255,9 @@ void Lexer::A3c()
 void Lexer::A3d()
 {
 	DA1D();
+	addLexem();
+	RKL = right_parenthesis;
+	addLexem();
 	RSOS = &Lexer::A3;
 }
 void Lexer::A3e()
@@ -1384,8 +1392,10 @@ void Lexer::D4a( )
 	{
 	case 1:
 		RZ = 1;
+		break;
 	case 2:
 		RZ = -1;
+		break;
 	default:
 		error_method("Unexpected character: not + or -");
 		break;
@@ -1396,7 +1406,8 @@ void Lexer::D4a( )
 
 void Lexer::D5a( )
 {
-	RZN = 1;
+	RZ = 1;
+	RP = RZN;
 	RSOS = &Lexer::D5;
 }
 
@@ -1494,6 +1505,9 @@ void Lexer::H1b()
 void Lexer::H1c()
 {
 	DA1D();
+	addLexem();
+	ROT = RZN;
+	RKL = lexeme_token_class::relationship_operation;
 	RSOS = &Lexer::H1;
 }
 void Lexer::H1d()
@@ -1554,7 +1568,7 @@ void Lexer::M3()
 	}
 	else
 	{
-		D3();
+		RSOS = &Lexer::D3;
 	}
 }
 void Lexer::W1a()
@@ -1678,6 +1692,7 @@ void Lexer::start(std::string filename)
 			transliterator(*it);
 			(this->*RSOS)();
 			COL++;
+			write_tables();
 		}
 		RK = transliterator_token_class::newline;
 		(this->*RSOS)();
@@ -1792,23 +1807,21 @@ void Lexer::transliterator(char c)
 		RZN = 4;
 		RK = transliterator_token_class::arithmetic;
 		break;
-	case '%':
+	case '^':
 		RZN = 5;
 		RK = transliterator_token_class::arithmetic;
 		break;
+
 	case '=':
 		RZN = 1;
-		ROT = 1;
 		RK = transliterator_token_class::relationship;
 		break;
 	case '<':
 		RZN = 2;
-		ROT = 2;
 		RK = transliterator_token_class::relationship;
 		break;
 	case '>':
 		RZN = 3;
-		ROT = 3;
 		RK = transliterator_token_class::relationship;
 		break;
 	case '(':
@@ -1922,8 +1935,8 @@ std::string Lexer::format_lexeme(lexeme_token tkn) const
 	std::string str;
 	char digit;
 	char letter;
-	std::vector<std::string> arr_arithmetic{ "", "+", "-", "*", "/", "%" };
-	std::vector<std::string> arr_relationship{ "=", "<", ">", "<>", "<=", ">="  };
+	std::vector<std::string> arr_arithmetic{ "", "+", "-", "*", "/", "^" };
+	std::vector<std::string> arr_relationship{ "", "=", "<", ">", "<>", "<=", ">="  };
 	switch (tkn.m_class)
 	{
 	case Lexer::label:
