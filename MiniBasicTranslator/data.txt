@@ -1,5 +1,2 @@
-10 for a1 = a TO b1 STEP b5
-20 let b = 2^5
-30 REM bullshit
-35
-40 END
+10 let a = 2 + 5 - 6 * 3 / 5 ^ 5
+20 end

@@ -1939,10 +1939,10 @@ std::string Lexer::format_lexeme(lexeme_token tkn) const
 	std::vector<std::string> arr_relationship{ "", "=", "<", ">", "<>", "<=", ">="  };
 	switch (tkn.m_class)
 	{
-	case Lexer::label:
+	case lexeme_token_class::label:
 		return std::to_string(tkn.m_value);
 		break;
-	case Lexer::identifier:
+	case lexeme_token_class::identifier:
 		if (tkn.m_value < 278)
 		{
 			letter = (tkn.m_value % 26) + 'A' - 1;
@@ -1959,13 +1959,13 @@ std::string Lexer::format_lexeme(lexeme_token tkn) const
 			return "cnst";
 		}
 		break;
-	case Lexer::arithmetic_operation:
+	case lexeme_token_class::arithmetic_operation:
 		return arr_arithmetic[tkn.m_value];
 		break;
-	case Lexer::relationship_operation:
+	case lexeme_token_class::relationship_operation:
 		return arr_relationship[tkn.m_value];
 		break;
-	case Lexer::end_of_loop:
+	case lexeme_token_class::end_of_loop:
 		letter = (tkn.m_value % 26) + 'A' - 1;
 		digit = tkn.m_value / 26 - 1;
 		str.push_back(letter);
@@ -1975,7 +1975,7 @@ std::string Lexer::format_lexeme(lexeme_token tkn) const
 		}
 		return str;
 		break;
-	case Lexer::assignment:
+	case lexeme_token_class::assignment:
 		letter = (tkn.m_value % 26) + 'A' - 1;
 		digit = tkn.m_value / 26 - 1;
 		str.push_back(letter);
@@ -1985,7 +1985,7 @@ std::string Lexer::format_lexeme(lexeme_token tkn) const
 		}
 		return str;
 		break;
-	case Lexer::FOR:
+	case lexeme_token_class::FOR:
 		letter = (tkn.m_value % 26) + 'A' - 1;
 		digit = tkn.m_value / 26 - 1;
 		str.push_back(letter);
@@ -1995,49 +1995,49 @@ std::string Lexer::format_lexeme(lexeme_token tkn) const
 		}
 		return str;
 		break;
-	case Lexer::transfer:
+	case lexeme_token_class::transfer:
 		return std::to_string(tkn.m_value);
 		break;
-	case Lexer::transfer_sub:
+	case lexeme_token_class::transfer_sub:
 		return std::to_string(tkn.m_value);
 		break;
-	case Lexer::left_parenthesis:
+	case lexeme_token_class::left_parenthesis:
 		return "";
 		break;
-	case Lexer::right_parenthesis:
+	case lexeme_token_class::right_parenthesis:
 		return "";
 		break;
-	case Lexer::IF:
+	case lexeme_token_class::IF:
 		return "";
 		break;
-	case Lexer::RETURN:
+	case lexeme_token_class::RETURN:
 		return "";
 		break;
-	case Lexer::END:
+	case lexeme_token_class::END:
 		return "";
 		break;
-	case Lexer::TO:
+	case lexeme_token_class::TO:
 		return "";
 		break;
-	case Lexer::STEP:
+	case lexeme_token_class::STEP:
 		return "";
 		break;
-	case Lexer::REM:
+	case lexeme_token_class::REM:
 		return "";
 		break;
-	case Lexer::WHILE:
+	case lexeme_token_class::WHILE:
 		return "";
 		break;
-	case Lexer::ENDW:
+	case lexeme_token_class::ENDW:
 		return "";
 		break;
-	case Lexer::ERROR_LEXEME:
+	case lexeme_token_class::ERROR_LEXEME:
 		return "";
 		break;
-	case Lexer::END_OF_FILE:
+	case lexeme_token_class::END_OF_FILE:
 		return "";
 		break;
-	case Lexer::LAST_LEXEME_TOKEN_CLASS:
+	case lexeme_token_class::LAST_LEXEME_TOKEN_CLASS:
 		return "";
 		break;
 	default:

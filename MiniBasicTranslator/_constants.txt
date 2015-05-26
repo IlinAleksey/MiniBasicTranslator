@@ -1,3 +1,7 @@
 Constants list:
 2
 5
+6
+3
+5
+5

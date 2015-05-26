@@ -50,14 +50,5 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="data.txt" />
-    <Text Include="_constants.txt">
-      <Filter>Logs</Filter>
-    </Text>
-    <Text Include="_labels.txt">
-      <Filter>Logs</Filter>
-    </Text>
-    <Text Include="_lexemes.txt">
-      <Filter>Logs</Filter>
-    </Text>
   </ItemGroup>
 </Project>

@@ -25,21 +25,23 @@ private:
 
 };
 
+enum lexeme_token_class
+{
+	label = 1, identifier, arithmetic_operation, relationship_operation, end_of_loop,
+	assignment, FOR, transfer, transfer_sub, left_parenthesis, right_parenthesis,
+	IF, RETURN, END, TO, STEP, REM, WHILE, ENDW, ERROR_LEXEME, END_OF_FILE, LAST_LEXEME_TOKEN_CLASS
+};
 
+struct lexeme_token
+{
+	lexeme_token_class m_class;
+	int m_value;
+};
 class Lexer
 {
+protected:
 	
-	enum lexeme_token_class
-	{
-		label=1, identifier, arithmetic_operation, relationship_operation, end_of_loop,
-		assignment,FOR, transfer, transfer_sub,	left_parenthesis,right_parenthesis,
-		IF, RETURN, END, TO, STEP, REM, WHILE, ENDW, ERROR_LEXEME, END_OF_FILE, LAST_LEXEME_TOKEN_CLASS
-	};
-	struct lexeme_token
-	{
-		lexeme_token_class m_class;
-		int m_value;
-	};
+	
 	enum transliterator_token_class
 	{
 		letter, digit, arithmetic, relationship, left_par, right_par, dot, CR, newline, eof, error, last_transliterator_token_class
@@ -232,5 +234,7 @@ public:
 	friend std::ostream& operator<<(std::ostream& out, const Lexer& lexer);
 	Lexer();
 	~Lexer();
+
+	
 };
 

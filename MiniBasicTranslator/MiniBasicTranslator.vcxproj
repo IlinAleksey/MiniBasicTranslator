@@ -90,9 +90,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="data.txt" />
-    <Text Include="_constants.txt" />
-    <Text Include="_labels.txt" />
-    <Text Include="_lexemes.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
