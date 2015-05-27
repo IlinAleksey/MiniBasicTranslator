@@ -1,0 +1,21 @@
+body{
+width: 450px;
+margin-left: auto;
+margin-right: auto;
+}
+
+table, td, th{
+   border: 1px solid black;
+   border-collapse: collapse;
+   
+   font-size: 16pt;
+}
+table{
+margin-bottom: 40px;
+}
+
+.container  table{
+    display:inline-table;
+    width:180px;
+	vertical-align: baseline;
+}

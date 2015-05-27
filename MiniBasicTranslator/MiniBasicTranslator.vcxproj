@@ -78,18 +78,25 @@
   <ItemGroup>
     <ClCompile Include="Hashtable.cpp" />
     <ClCompile Include="HashtableDel.cpp" />
+    <ClCompile Include="HtmlLogger.cpp" />
     <ClCompile Include="Lexer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Synt.cpp" />
+    <ClCompile Include="tinyxml2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hashtable.h" />
     <ClInclude Include="HashtableDel.h" />
+    <ClInclude Include="HtmlLogger.h" />
     <ClInclude Include="Lexer.h" />
     <ClInclude Include="Synt.h" />
+    <ClInclude Include="tinyxml2.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="data.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="stylesheet.css" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

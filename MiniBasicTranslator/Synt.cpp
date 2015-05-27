@@ -11,29 +11,38 @@ Synt::Synt() :m_fsm_table(SyntStackSymbol::LAST_SYNTSTACKSYMBOL, std::vector<syn
 	m_fsm_table[OTHERLINES][STRING] = &Synt::f_13;
 
 	m_fsm_table[EXPRESSION][OPERAND] = &Synt::f_14;
+	m_fsm_table[EXPRESSION][LEFTPAR] = &Synt::f_14;
 
 	m_fsm_table[TERM][OPERAND] = &Synt::f_20;
+	m_fsm_table[TERM][LEFTPAR] = &Synt::f_20;
 
 	m_fsm_table[FACTOR][OPERAND] = &Synt::f_24;
+	m_fsm_table[FACTOR][LEFTPAR] = &Synt::f_24;
 
 	m_fsm_table[PRIMARY][OPERAND] = &Synt::f_28;
+	m_fsm_table[PRIMARY][LEFTPAR] = &Synt::f_27;
+
+	m_fsm_table[ELIST][STRING] = &Synt::f_19;
+	m_fsm_table[ELIST][RIGHTPAR] = &Synt::f_19;
+	m_fsm_table[ELIST][ADDITION] = &Synt::f_17;
+	m_fsm_table[ELIST][SUBTRACT] = &Synt::f_18;
+
+	m_fsm_table[TLIST][STRING] = &Synt::f_23;
+	m_fsm_table[TLIST][RIGHTPAR] = &Synt::f_23;
+	m_fsm_table[TLIST][ADDITION] = &Synt::f_23;
+	m_fsm_table[TLIST][SUBTRACT] = &Synt::f_26;
+	m_fsm_table[TLIST][MULTIPLICATION] = &Synt::f_21;
+	m_fsm_table[TLIST][DIVISION] = &Synt::f_22;
 
 	m_fsm_table[FLIST][STRING] = &Synt::f_26;
+	m_fsm_table[FLIST][RIGHTPAR] = &Synt::f_26;
 	m_fsm_table[FLIST][ADDITION] = &Synt::f_26;
 	m_fsm_table[FLIST][SUBTRACT] = &Synt::f_26;
 	m_fsm_table[FLIST][MULTIPLICATION] = &Synt::f_26;
 	m_fsm_table[FLIST][DIVISION] = &Synt::f_26;
 	m_fsm_table[FLIST][EXPONENT] = &Synt::f_25;
 
-	m_fsm_table[TLIST][STRING] = &Synt::f_23;
-	m_fsm_table[TLIST][ADDITION] = &Synt::f_23;
-	m_fsm_table[TLIST][SUBTRACT] = &Synt::f_26;
-	m_fsm_table[TLIST][MULTIPLICATION] = &Synt::f_21;
-	m_fsm_table[FLIST][DIVISION] = &Synt::f_22;
-
-	m_fsm_table[ELIST][STRING] = &Synt::f_19;
-	m_fsm_table[ELIST][ADDITION] = &Synt::f_17;
-	m_fsm_table[ELIST][SUBTRACT] = &Synt::f_18;
+	m_fsm_table[RIGHTPARst][RIGHTPAR] = &Synt::a;
 
 	m_fsm_table[ENDst][ENDsnt] = &Synt::a;
 
@@ -42,6 +51,8 @@ Synt::Synt() :m_fsm_table(SyntStackSymbol::LAST_SYNTSTACKSYMBOL, std::vector<syn
 	m_fsm_table[ASSIGNact][STRING] = &Synt::d;
 
 	m_fsm_table[ADDITIONact][STRING] = &Synt::l;
+	m_fsm_table[ADDITIONact][LEFTPAR] = &Synt::l;
+	m_fsm_table[ADDITIONact][RIGHTPAR] = &Synt::l;
 	m_fsm_table[ADDITIONact][ADDITION] = &Synt::l;
 	m_fsm_table[ADDITIONact][SUBTRACT] = &Synt::l;
 	m_fsm_table[ADDITIONact][MULTIPLICATION] = &Synt::l;
@@ -49,6 +60,8 @@ Synt::Synt() :m_fsm_table(SyntStackSymbol::LAST_SYNTSTACKSYMBOL, std::vector<syn
 	m_fsm_table[ADDITIONact][EXPONENT] = &Synt::l;
 
 	m_fsm_table[SUBTRACTIONact][STRING] = &Synt::m;
+	m_fsm_table[SUBTRACTIONact][LEFTPAR] = &Synt::m;
+	m_fsm_table[SUBTRACTIONact][RIGHTPAR] = &Synt::m;
 	m_fsm_table[SUBTRACTIONact][ADDITION] = &Synt::m;
 	m_fsm_table[SUBTRACTIONact][SUBTRACT] = &Synt::m;
 	m_fsm_table[SUBTRACTIONact][MULTIPLICATION] = &Synt::m;
@@ -56,6 +69,8 @@ Synt::Synt() :m_fsm_table(SyntStackSymbol::LAST_SYNTSTACKSYMBOL, std::vector<syn
 	m_fsm_table[SUBTRACTIONact][EXPONENT] = &Synt::m;
 
 	m_fsm_table[MULTIPLICATIONact][STRING] = &Synt::n;
+	m_fsm_table[MULTIPLICATIONact][LEFTPAR] = &Synt::n;
+	m_fsm_table[MULTIPLICATIONact][RIGHTPAR] = &Synt::n;
 	m_fsm_table[MULTIPLICATIONact][ADDITION] = &Synt::n;
 	m_fsm_table[MULTIPLICATIONact][SUBTRACT] = &Synt::n;
 	m_fsm_table[MULTIPLICATIONact][MULTIPLICATION] = &Synt::n;
@@ -63,6 +78,8 @@ Synt::Synt() :m_fsm_table(SyntStackSymbol::LAST_SYNTSTACKSYMBOL, std::vector<syn
 	m_fsm_table[MULTIPLICATIONact][EXPONENT] = &Synt::n;
 
 	m_fsm_table[DIVIOSIONact][STRING] = &Synt::o;
+	m_fsm_table[DIVIOSIONact][LEFTPAR] = &Synt::o;
+	m_fsm_table[DIVIOSIONact][RIGHTPAR] = &Synt::o;
 	m_fsm_table[DIVIOSIONact][ADDITION] = &Synt::o;
 	m_fsm_table[DIVIOSIONact][SUBTRACT] = &Synt::o;
 	m_fsm_table[DIVIOSIONact][MULTIPLICATION] = &Synt::o;
@@ -70,6 +87,8 @@ Synt::Synt() :m_fsm_table(SyntStackSymbol::LAST_SYNTSTACKSYMBOL, std::vector<syn
 	m_fsm_table[DIVIOSIONact][EXPONENT] = &Synt::o;
 
 	m_fsm_table[EXPONENTact][STRING] = &Synt::p;
+	m_fsm_table[EXPONENTact][LEFTPAR] = &Synt::p;
+	m_fsm_table[EXPONENTact][RIGHTPAR] = &Synt::p;
 	m_fsm_table[EXPONENTact][ADDITION] = &Synt::p;
 	m_fsm_table[EXPONENTact][SUBTRACT] = &Synt::p;
 	m_fsm_table[EXPONENTact][MULTIPLICATION] = &Synt::p;
@@ -78,7 +97,7 @@ Synt::Synt() :m_fsm_table(SyntStackSymbol::LAST_SYNTSTACKSYMBOL, std::vector<syn
 
 	CTL = 0;
 	top_position = -1;
-	mainstack = new int[1000];
+	mainstack = new StackElement[1000];
 }
 
 
@@ -101,8 +120,8 @@ void Synt::f_1()
 	adds new atom numline, puts number of current line into LN register and shifts
 	*/ 
 	pop();
-	push(SyntStackSymbol::ENDst);
-	push(SyntStackSymbol::BODY);
+	push({ StackElementClass::Nonterminal, SyntStackSymbol::ENDst });
+	push({ StackElementClass::Nonterminal, SyntStackSymbol::BODY });
 	AddAtom(AtomClass::NUMLINEatom, value_register);
 	LN = value_register;
 	shift();
@@ -137,12 +156,13 @@ void Synt::f_4()
 	then it shifts
 	*/
 	pop();
-	push(SyntStackSymbol::OTHERLINES);
-	push(0);
-	push(value_register);
-	push(SyntStackSymbol::ASSIGNact);
-	push(int(&mainstack[top_position - 2]));
-	push(SyntStackSymbol::EXPRESSION);
+	push({ StackElementClass::Nonterminal, SyntStackSymbol::OTHERLINES });
+	push({ StackElementClass::Value, 0 });
+	push({ StackElementClass::Value, value_register });
+	push({ StackElementClass::Action, SyntStackSymbol::ASSIGNact });
+	push({ StackElementClass::Pointer, int(&mainstack[top_position - 2]) });
+	push({ StackElementClass::Nonterminal, SyntStackSymbol::EXPRESSION });
+	
 	shift();
 }
 
@@ -160,7 +180,7 @@ void Synt::f_13()
 	then it shifts
 	*/
 	pop();
-	push(SyntStackSymbol::BODY);
+	push({ StackElementClass::Nonterminal, SyntStackSymbol::BODY });
 	AddAtom(AtomClass::NUMLINEatom, value_register);
 	LN = value_register;
 	shift();
@@ -186,10 +206,12 @@ void Synt::f_14()
 	then it holds
 	*/
 	pop();
-	push(0);
-	push(SyntStackSymbol::ELIST);
-	push(int(&mainstack[top_position - 1]));
-	push(SyntStackSymbol::TERM);
+
+	push({ StackElementClass::Value, 0 });
+
+	push({ StackElementClass::Nonterminal, SyntStackSymbol::ELIST });
+	push({ StackElementClass::Pointer, int(&mainstack[top_position - 1]) });
+	push({ StackElementClass::Nonterminal, SyntStackSymbol::TERM });
 }
 
 void Synt::f_17()
@@ -217,14 +239,15 @@ void Synt::f_17()
 	then it shifts
 	*/
 	int r = int(NOVT());
-	int p = mainstack[top_position - 1];
-	mainstack[top_position - 1] = r;
-	push(r);
-	push(0);
-	push(p);
-	push(SyntStackSymbol::ADDITIONact);
-	push(int(&mainstack[top_position - 2]));
-	push(SyntStackSymbol::TERM);
+	int p = mainstack[top_position - 1].value;
+	mainstack[top_position - 1].value = r;
+
+	push({ StackElementClass::Pointer, r });
+	push({ StackElementClass::Value, 0 });
+	push({ Value, p });
+	push({ StackElementClass::Action, SyntStackSymbol::ADDITIONact });
+	push({ StackElementClass::Pointer, int(&mainstack[top_position - 2]) });
+	push({ StackElementClass::Nonterminal, SyntStackSymbol::TERM });
 	shift();
 }
 
@@ -253,14 +276,15 @@ void Synt::f_18()
 	then it shifts
 	*/
 	int r = int(NOVT());
-	int p = mainstack[top_position - 1];
-	mainstack[top_position - 1] = r;
-	push(r);
-	push(0);
-	push(p);
-	push(SyntStackSymbol::SUBTRACTIONact);
-	push(int(&mainstack[top_position - 2]));
-	push(SyntStackSymbol::TERM);
+	int p = mainstack[top_position - 1].value;
+	mainstack[top_position - 1].value = r;
+
+	push({ StackElementClass::Pointer, r });
+	push({ StackElementClass::Value, 0 });
+	push({ Value, p });
+	push({ StackElementClass::Action, SyntStackSymbol::SUBTRACTIONact });
+	push({ StackElementClass::Pointer, int(&mainstack[top_position - 2]) });
+	push({ StackElementClass::Nonterminal, SyntStackSymbol::TERM });
 	shift();
 }
 
@@ -279,7 +303,7 @@ void Synt::f_19()
 
 	then it holds
 	*/
-	int* ptr = (int*) mainstack[top_position - 2];
+	StackElement* ptr = (StackElement*) mainstack[top_position - 2].value;
 	*ptr = mainstack[top_position - 1];
 	pop();
 	pop();
@@ -306,10 +330,11 @@ void Synt::f_20()
 	then it holds
 	*/
 	pop();
-	push(0);
-	push(SyntStackSymbol::TLIST);
-	push(int(&mainstack[top_position - 1]));
-	push(SyntStackSymbol::FACTOR);
+	push({ StackElementClass::Value, 0 });
+
+	push({ StackElementClass::Nonterminal, SyntStackSymbol::TLIST });
+	push({ StackElementClass::Pointer, int(&mainstack[top_position - 1]) });
+	push({ StackElementClass::Nonterminal, SyntStackSymbol::FACTOR });
 }
 
 void Synt::f_21()
@@ -337,14 +362,15 @@ void Synt::f_21()
 	then it shifts
 	*/
 	int r = int(NOVT());
-	int p = mainstack[top_position - 1];
-	mainstack[top_position - 1] = r;
-	push(r);
-	push(0);
-	push(p);
-	push(SyntStackSymbol::MULTIPLICATIONact);
-	push(int(&mainstack[top_position - 2]));
-	push(SyntStackSymbol::FACTOR);
+	int p = mainstack[top_position - 1].value;
+	mainstack[top_position - 1].value = r;
+
+	push({ StackElementClass::Pointer, r });
+	push({ StackElementClass::Value, 0 });
+	push({ Value, p });
+	push({ StackElementClass::Action, SyntStackSymbol::MULTIPLICATIONact });
+	push({ StackElementClass::Pointer, int(&mainstack[top_position - 2]) });
+	push({ StackElementClass::Nonterminal, SyntStackSymbol::FACTOR });
 	shift();
 }
 
@@ -373,14 +399,15 @@ void Synt::f_22()
 	then it shifts
 	*/
 	int r = int(NOVT());
-	int p = mainstack[top_position - 1];
-	mainstack[top_position - 1] = r;
-	push(r);
-	push(0);
-	push(p);
-	push(SyntStackSymbol::DIVIOSIONact);
-	push(int(&mainstack[top_position - 2]));
-	push(SyntStackSymbol::FACTOR);
+	int p = mainstack[top_position - 1].value;
+	mainstack[top_position - 1].value = r;
+
+	push({ StackElementClass::Pointer, r });
+	push({ StackElementClass::Value, 0 });
+	push({ Value, p });
+	push({ StackElementClass::Action, SyntStackSymbol::DIVIOSIONact });
+	push({ StackElementClass::Pointer, int(&mainstack[top_position - 2]) });
+	push({ StackElementClass::Nonterminal, SyntStackSymbol::FACTOR });
 	shift();
 }
 
@@ -399,8 +426,8 @@ void Synt::f_23()
 
 	then it holds
 	*/
-	int* ptr = (int*) mainstack[top_position - 2];
-	*ptr = mainstack[top_position - 1];
+	int* ptr = (int*) mainstack[top_position - 2].value;
+	*ptr = mainstack[top_position - 1].value;
 	pop();
 	pop();
 	pop();
@@ -426,10 +453,10 @@ void Synt::f_24()
 	then it holds
 	*/
 	pop();
-	push(0);
-	push(SyntStackSymbol::FLIST);
-	push(int(&mainstack[top_position - 1]));
-	push(SyntStackSymbol::PRIMARY);
+	push({ StackElementClass::Value, 0 });
+	push({ StackElementClass::Nonterminal, SyntStackSymbol::FLIST });
+	push({ StackElementClass::Pointer, int(&mainstack[top_position - 1]) });
+	push({ StackElementClass::Nonterminal, SyntStackSymbol::PRIMARY });
 }
 
 void Synt::f_25()
@@ -457,14 +484,14 @@ void Synt::f_25()
 	then it shifts
 	*/
 	int r = int(NOVT());
-	int p = mainstack[top_position - 1];
-	mainstack[top_position - 1] = r;
-	push(r);
-	push(0);
-	push(p);
-	push(SyntStackSymbol::EXPONENTact);
-	push(int(&mainstack[top_position - 2]));
-	push(SyntStackSymbol::PRIMARY);
+	int p = mainstack[top_position - 1].value;
+	mainstack[top_position - 1].value = r;
+	push({ StackElementClass::Pointer, r });
+	push({ StackElementClass::Value, 0 });
+	push({ Value, p });
+	push({ StackElementClass::Action, SyntStackSymbol::EXPONENTact });
+	push({ StackElementClass::Pointer, int(&mainstack[top_position - 2]) });
+	push({ StackElementClass::Nonterminal, SyntStackSymbol::PRIMARY });
 	shift();
 }
 
@@ -483,11 +510,37 @@ void Synt::f_26()
 
 	then it holds
 	*/
-	int* ptr = (int*) mainstack[top_position - 2];
+	StackElement* ptr = (StackElement*) mainstack[top_position - 2].value;
 	*ptr = mainstack[top_position - 1];
 	pop();
 	pop();
 	pop();
+}
+
+void Synt::f_27()
+{
+	/*
+	replaces
+
+	<primary>
+	element 0
+
+	with
+
+	<expression>
+	element 0
+	)
+
+	then it shifts
+	*/
+	StackElement p = mainstack[top_position - 1];
+	pop();
+	pop();
+	push({ StackElementClass::Nonterminal, SyntStackSymbol::RIGHTPARst });
+	push(p);
+	push({ StackElementClass::Nonterminal, SyntStackSymbol::EXPRESSION });
+	
+	shift();
 }
 
 void Synt::f_28()
@@ -503,8 +556,8 @@ void Synt::f_28()
 	then pops <primary>	and element 1,
 	then it shifts
 	*/
-	int* ptr = (int*)mainstack[top_position - 1];
-	*ptr = value_register;
+	StackElement* ptr = (StackElement*) mainstack[top_position - 1].value;
+	*ptr = { StackElementClass::Value, value_register };
 	pop();
 	pop();
 	shift();
@@ -541,8 +594,8 @@ void Synt::d()
 	then it holds
 	*/
 	AddAtom(AtomClass::ASSIGNatom,
-		mainstack[top_position - 1],
-		mainstack[top_position - 2]);
+		mainstack[top_position - 1].value,
+		mainstack[top_position - 2].value);
 	pop();
 	pop();
 	pop();
@@ -563,9 +616,9 @@ void Synt::l()
 	then it holds
 	*/
 	AddAtom(AtomClass::ADDITIONatom,
-		mainstack[top_position - 1],
-		mainstack[top_position - 2],
-		mainstack[top_position - 3]);
+		mainstack[top_position - 1].value,
+		mainstack[top_position - 2].value,
+		mainstack[top_position - 3].value);
 	pop();
 	pop();
 	pop();
@@ -587,9 +640,9 @@ void Synt::m()
 	then it holds
 	*/
 	AddAtom(AtomClass::SUBTRACTIONatom,
-		mainstack[top_position - 1],
-		mainstack[top_position - 2],
-		mainstack[top_position - 3]);
+		mainstack[top_position - 1].value,
+		mainstack[top_position - 2].value,
+		mainstack[top_position - 3].value);
 	pop();
 	pop();
 	pop();
@@ -611,9 +664,9 @@ void Synt::n()
 	then it holds
 	*/
 	AddAtom(AtomClass::MULTIPLICATIONatom,
-		mainstack[top_position - 1],
-		mainstack[top_position - 2],
-		mainstack[top_position - 3]);
+		mainstack[top_position - 1].value,
+		mainstack[top_position - 2].value,
+		mainstack[top_position - 3].value);
 	pop();
 	pop();
 	pop();
@@ -635,9 +688,9 @@ void Synt::o()
 	then it holds
 	*/
 	AddAtom(AtomClass::DIVISIONatom,
-		mainstack[top_position - 1],
-		mainstack[top_position - 2],
-		mainstack[top_position - 3]);
+		mainstack[top_position - 1].value,
+		mainstack[top_position - 2].value,
+		mainstack[top_position - 3].value);
 	pop();
 	pop();
 	pop();
@@ -659,9 +712,9 @@ void Synt::p()
 	then it holds
 	*/
 	AddAtom(AtomClass::EXPONENTatom,
-		mainstack[top_position - 1],
-		mainstack[top_position - 2],
-		mainstack[top_position - 3]);
+		mainstack[top_position - 1].value,
+		mainstack[top_position - 2].value,
+		mainstack[top_position - 3].value);
 	pop();
 	pop();
 	pop();
@@ -677,7 +730,7 @@ void Synt::pop()
 {
 	top_position--;
 }
-void Synt::push(int element)
+void Synt::push(StackElement element)
 {
 	mainstack[top_position + 1] = element;
 	top_position++;
@@ -792,19 +845,67 @@ void Synt::AddAtom(AtomClass atomclass, int a1, int a2, int a3, int a4)
 
 void Synt::start_syntax()
 {
-	push(SyntStackSymbol::BOTTOM);
-	push(SyntStackSymbol::PROGRAM);
+	push({ StackElementClass::Nonterminal, SyntStackSymbol::BOTTOM });
+	push({ StackElementClass::Nonterminal, SyntStackSymbol::PROGRAM });
 	while (top_position >= 0)
 	{
+		html_logger.InitNewContainer();
+		log_current_state();
+		html_logger.AddTableToContainer();
+
 		transliterator(UTL[CTL]);
-		(this->*m_fsm_table[mainstack[top_position]][input_register])();
+		(this->*m_fsm_table[mainstack[top_position].value][input_register])();
 		for (int i = top_position; i >=0; i--)
 		{
-			std::cout << mainstack[i] << std::endl;
+			std::cout << mainstack[i].type << " " << mainstack[i].value << std::endl;
 
 		}
 		std::cout  << std::endl;
+		log_current_state();
+		html_logger.AddTableToContainer();
+		html_logger.AddContainer();
+		html_logger.SaveFile();
 	}
 	int a = 2;
 	return;
+}
+
+std::vector<std::string> synt_stack_symbol_arr = { "PROGRAM", "BODY", "STEPst", "OTHERLINES",
+"EXPRESSION", "TERM", "FACTOR", "PRIMARY", "ELIST", "TLIST", "FLIST",
+"RELSATIONSHIP", "ENDOFLOOP", "GOTO", "RIGHTPAR", "END", "TO", "BOTTOM", "ASSIGN", "IF",
+"KEEP", "LABEL", "CHECK", "CONTROL", "INCREASE", "GOTO", "ADDITION", "SUBTRACTION",
+"MULTIPLICATION", "DIVIOSION", "EXPONENT", "PLUS", "MINUS", "LAST_SYNTSTACKSYMBOL" };
+
+std::string Synt::format_stack_element(StackElement element)
+{
+	if (element.type == StackElementClass::Nonterminal)
+	{
+		return "<" + synt_stack_symbol_arr[element.value] + ">";
+	}
+	if (element.type == StackElementClass::Action)
+	{
+		return "{" + synt_stack_symbol_arr[element.value] + "}";
+	}
+	else
+	{
+		return std::to_string(element.value);
+	}
+	return "";
+}
+
+void Synt::log_current_state()
+{
+	if (top_position < 0)
+	{
+		html_logger.InitNewTable();
+		html_logger.PushToTableTop("empty");
+		html_logger.AddTable();
+		return;
+	}
+	html_logger.InitNewTable();
+	for (size_t i = 0; i <= top_position; i++)
+	{
+		html_logger.PushToTableBottom(format_stack_element(mainstack[i]));
+	}
+	html_logger.AddTable();
 }

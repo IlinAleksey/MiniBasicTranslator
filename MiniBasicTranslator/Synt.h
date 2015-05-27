@@ -2,6 +2,8 @@
 #include "Lexer.h"
 #include <stack>
 #include <vector>
+#include "HtmlLogger.h"
+
 class Synt;
 enum SyntInputSymbol
 {
@@ -30,14 +32,14 @@ struct Atom
 	int a3;
 	int a4;
 };
-enum AtomTableElementClass
+enum StackElementClass
 {
 	Nonterminal, Action, Pointer, Value
 };
-struct AtomTableElement
+struct StackElement
 {
-	AtomTableElementClass type;
-	Atom atom;
+	StackElementClass type;
+	int value;
 };
 typedef void(Synt::*synt_method)();
 class Synt :
@@ -49,11 +51,11 @@ class Synt :
 	SyntInputSymbol input_register;
 	int value_register;
 
-	int* mainstack;
+	StackElement* mainstack;
 	int mainstack_size;
 	int top_position;
 	void pop();
-	void push(int element);
+	void push(StackElement element);
 	void top(int position = 0);
 	void shift();
 
@@ -77,6 +79,7 @@ class Synt :
 	void f_24();
 	void f_25();
 	void f_26();
+	void f_27();
 	void f_28();
 
 	void a();
@@ -94,7 +97,9 @@ class Synt :
 
 	int* NOVT() { return new int; }
 
-	
+	std::string format_stack_element(StackElement element);
+	HtmlLogger html_logger;
+	void log_current_state();
 public:
 	Synt();
 	~Synt();
