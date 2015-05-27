@@ -1,0 +1,15 @@
+#pragma once
+#include "Lexer.h"
+enum SyntInputSymbol
+{
+	STRING, OPERAND, RELATIONSHIP, ENDOFLOOP, ASSIGN, FOR, GOTOSYNT, GOTOSUBSYNT, LEFTPAR,
+	RIGHTPAR, IF, RETURN, END, TO, STEP, ADDITION, EXPONENT, SUBTRACT, DIVISION, MULTIPLICATION, ERROR, END_MARKER
+};
+class Synt :
+	public Lexer
+{
+public:
+	Synt();
+	~Synt();
+};
+
